@@ -1,0 +1,6 @@
+*.d.ts
+scripts/**
+
+.eslintrc.js
+
+*.config.js
