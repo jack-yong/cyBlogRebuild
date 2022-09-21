@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const index = () => {
-    return <div>mobile</div>
-}
+    return <div>mobile</div>;
+};
 
-export default index
+export default index;

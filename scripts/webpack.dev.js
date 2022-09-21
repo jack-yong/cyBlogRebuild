@@ -1,10 +1,10 @@
-const path = require('path')
-const { merge } = require('webpack-merge')
-const baseConfig = require('./webpack.base.js')
+const path = require('path');
+const { merge } = require('webpack-merge');
+const baseConfig = require('./webpack.base.js');
 
-const { ROOT_PATH, SERVER_HOST, SERVER_PORT } = require('./constant/constant')
+const { ROOT_PATH, SERVER_HOST, SERVER_PORT } = require('./constant/constant');
 
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 // 合并公共配置,并添加开发环境配置
 module.exports = merge(baseConfig, {
@@ -27,4 +27,4 @@ module.exports = merge(baseConfig, {
     plugins: [
         new ReactRefreshWebpackPlugin() // 添加热更新插件
     ]
-})
+});

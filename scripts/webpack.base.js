@@ -1,17 +1,17 @@
-const path = require('path')
-const WebpackBar = require('webpackbar')
-const { ROOT_PATH } = require('./constant/constant')
-const { isDevelopment, isProduction } = require('./constant/env')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const { separator } = require('./constant/constant')
-const { getEntryTemplate } = require('./utils/helper')
+const path = require('path');
+const WebpackBar = require('webpackbar');
+const { ROOT_PATH } = require('./constant/constant');
+const { isDevelopment, isProduction } = require('./constant/env');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const { separator } = require('./constant/constant');
+const { getEntryTemplate } = require('./utils/helper');
 
 // 将packages拆分成为数组 ['admin','home']
-const packages = process.env.packages.split(separator)
+const packages = process.env.packages.split(separator);
 
 // 调用getEntryTemplate 获得对应的entry和htmlPlugins
-const { entry, htmlPlugins } = getEntryTemplate(packages)
+const { entry, htmlPlugins } = getEntryTemplate(packages);
 
 module.exports = {
     // 动态替换entry
@@ -23,9 +23,7 @@ module.exports = {
                 enforce: 'pre', // 优先执行
                 include: [path.resolve(ROOT_PATH, './src')],
                 use: [
-                    isDevelopment
-                        ? 'style-loader'
-                        : MiniCssExtractPlugin.loader,
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader'
                 ]
@@ -35,16 +33,13 @@ module.exports = {
                 enforce: 'pre',
                 include: [path.resolve(ROOT_PATH, './src')],
                 use: [
-                    isDevelopment
-                        ? 'style-loader'
-                        : MiniCssExtractPlugin.loader,
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
                                 // 模块化类名，防止重复
-                                localIdentName:
-                                    'cblog-[local]--[hash:base64:10]'
+                                localIdentName: 'cblog-[local]--[hash:base64:10]'
                             },
                             sourceMap: isDevelopment
                         }
@@ -57,9 +52,7 @@ module.exports = {
                 test: /\.scss$/,
                 exclude: [/node_modules/, /\.mod.scss$/],
                 use: [
-                    isDevelopment
-                        ? 'style-loader'
-                        : MiniCssExtractPlugin.loader,
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader',
                     'sass-loader'
@@ -69,16 +62,13 @@ module.exports = {
                 test: /\.mod.scss$/,
                 include: [path.resolve(ROOT_PATH, './src')],
                 use: [
-                    isDevelopment
-                        ? 'style-loader'
-                        : MiniCssExtractPlugin.loader,
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
                                 // 模块化类名，防止重复
-                                localIdentName:
-                                    'cblog-[local]--[hash:base64:10]'
+                                localIdentName: 'cblog-[local]--[hash:base64:10]'
                             },
                             sourceMap: isDevelopment
                         }
@@ -160,4 +150,4 @@ module.exports = {
             config: [__filename]
         }
     }
-}
+};

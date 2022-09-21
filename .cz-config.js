@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 module.exports = {
     types: [
         { value: '✨新增', name: '新增:    新的内容' },
@@ -43,4 +43,4 @@ module.exports = {
     allowBreakingChanges: ['特性', '修复'],
     // limit subject length
     subjectLimit: 100
-}
+};

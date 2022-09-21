@@ -1,17 +1,17 @@
 // webpack.prod.js
-const path = require('path')
-const { merge } = require('webpack-merge')
-const baseConfig = require('./webpack.base.js')
-const { ROOT_PATH } = require('./constant/constant')
+const path = require('path');
+const { merge } = require('webpack-merge');
+const baseConfig = require('./webpack.base.js');
+const { ROOT_PATH } = require('./constant/constant');
 
 //插件部分
-const CopyPlugin = require('copy-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const PurgeCSSPlugin = require('purgecss-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
-const globAll = require('glob-all')
+const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const PurgeCSSPlugin = require('purgecss-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const globAll = require('glob-all');
 
 module.exports = merge(baseConfig, {
     mode: 'production', // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
@@ -30,7 +30,7 @@ module.exports = merge(baseConfig, {
                     from: path.resolve(ROOT_PATH, './public'), // 复制public下文件
                     to: path.resolve(ROOT_PATH, './dist'), // 复制到dist目录中
                     filter: source => {
-                        return !source.includes('index.html') // 忽略index.html
+                        return !source.includes('index.html'); // 忽略index.html
                     }
                 }
             ]
@@ -96,4 +96,4 @@ module.exports = merge(baseConfig, {
             }
         }
     }
-})
+});

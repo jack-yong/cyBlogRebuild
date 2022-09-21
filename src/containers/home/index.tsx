@@ -1,6 +1,6 @@
-import React from 'react'
-import Test from './components/Test'
-import HotChange from './components/HotChange'
+import React from 'react';
+import Test from './components/Test';
+import HotChange from './components/HotChange';
 
 const index = () => {
     return (
@@ -8,7 +8,7 @@ const index = () => {
             <Test />
             <HotChange />
         </div>
-    )
-}
+    );
+};
 
-export default index
+export default index;
