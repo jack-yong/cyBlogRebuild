@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import smallImg from '@/containers/home/assets/images/5kb.png';
 import bigImg from '@/containers/home/assets/images/22kb.png';
+import { Button } from 'antd';
 import s from './index.mod.scss';
 import './index.scss';
 
@@ -21,9 +22,10 @@ class Test extends PureComponent {
                 <h2 className={s.test}>
                     我是类组件---{this.age} 名字是---{this.name}
                 </h2>
-                <h3 className='name1'>绿色的ss</h3>
+                <h3 className='name1'>绿色是的图ssss片</h3>
                 <img src={smallImg} alt='小于10kb的图片' />
                 <img src={bigImg} alt='大于于10kb的图片' />
+                <Button type='primary' />
             </>
         );
     }

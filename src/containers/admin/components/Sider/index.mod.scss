@@ -1,0 +1,26 @@
+@import '../../styles/base.scss';
+
+.header {
+    height: $headerHeight;
+    background: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 24px;
+    overflow: hidden;
+
+    .title {
+        margin-left: 14px;
+        flex: 1;
+    }
+
+    .logo {
+        height: 30px;
+        width: 30px;
+        margin-left: 24px;
+    }
+}
+
+.sider {
+    min-height: 100vh;
+}

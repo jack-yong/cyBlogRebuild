@@ -1,0 +1,9 @@
+@import '../../styles/base.scss';
+
+.content {
+    background: #fff;
+    margin: 24px 16px;
+    padding: 24px;
+    min-height: calc(100vh-#{$footerHeight+$space * 2});
+    border-radius: $midRadius;
+}

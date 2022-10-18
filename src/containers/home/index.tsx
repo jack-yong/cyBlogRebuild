@@ -2,7 +2,7 @@ import React from 'react';
 import Test from './components/Test';
 import HotChange from './components/HotChange';
 
-const index = () => {
+const index: React.FC = () => {
     return (
         <div>
             <Test />

@@ -9,12 +9,14 @@ const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const PurgeCSSPlugin = require('purgecss-webpack-plugin');
+// const PurgeCSSPlugin = require('purgecss-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const globAll = require('glob-all');
+// const globAll = require('glob-all');
 
 module.exports = merge(baseConfig, {
+    // target: 'browserslist', // 解决热更新失效
     mode: 'production', // 生产模式,会开启tree-shaking和压缩代码,以及其他优化
+    target: ['web', 'es5'], //正式环境打包编译成es5
     output: {
         filename: 'static/js/[name].[chunkhash:8].js', // 每个输出js的名称
         chunkFilename: 'static/js/[name].[chunkhash:8].js', // js的名称
@@ -41,16 +43,16 @@ module.exports = merge(baseConfig, {
             chunkFilename: 'static/css/[name].[contenthash:8].chunk.css'
         }),
         // 去除没用到的css插件
-        new PurgeCSSPlugin({
-            paths: globAll.sync([
-                `${path.join(ROOT_PATH, './src')}/**/*.tsx`,
-                `${path.join(ROOT_PATH, './public')}/index.html`
-            ]),
-            safelist: {
-                standard: [/^ant-/], // 过滤以ant-开头的类名，哪怕没用到也不删除
-                standard: [/^cblog-/] // 过滤以xxx-开头的类名，哪怕没用到也不删除
-            }
-        }),
+        // new PurgeCSSPlugin({
+        //     paths: globAll.sync([
+        //         `${path.join(ROOT_PATH, './src')}/**/*.tsx`,
+        //         `${path.join(ROOT_PATH, './public')}/index.html`
+        //     ]),
+        //     safelist: {
+        //         standard: [/^ant-/], // 过滤以ant-开头的类名，哪怕没用到也不删除
+        //         standard: [/^cblog-/] // 过滤以xxx-开头的类名，哪怕没用到也不删除
+        //     }
+        // }),
         // 打包生成gzip插件
         new CompressionPlugin({
             test: /\.(js|css)$/, // 只生成css,js压缩文件
@@ -68,6 +70,7 @@ module.exports = merge(baseConfig, {
             new TerserPlugin({
                 // 压缩js
                 parallel: true, // 开启多线程压缩
+                extractComments: false, // 去除所有注释
                 terserOptions: {
                     compress: {
                         pure_funcs: ['console.log'] // 删除console.log

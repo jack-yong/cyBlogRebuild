@@ -1,0 +1,56 @@
+.adminContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+    .adminHeader {
+        z-index: 11;
+        color: #000;
+        background-color: #fff;
+        padding: 0 24px;
+        box-shadow: 0 2px 8px #f0f1f2;
+        line-height: 76px;
+        height: 76px;
+
+        .headerTitle {
+            font-size: 24px;
+            display: inline-block;
+            transform: translate(17px, 2px);
+        }
+
+        .headerDropdown {
+            line-height: 76px;
+            float: right;
+            color: #000;
+            background-color: #fff;
+        }
+    }
+
+    .adminSider {
+        // height: 100%;
+        background: #fff;
+    }
+
+    .adminContentWrap {
+        padding: 20px 24px;
+        display: inline-block;
+        height: calc(100vh - 76px);
+
+        .adminContent {
+            position: relative;
+            background: #fff;
+            padding: 24px;
+            margin: 0;
+            flex: none;
+            min-height: calc(90vh - 76px);
+            // margin-bottom: 24px;
+        }
+    }
+
+    .adminTable {
+        .ant-table-thead > tr > th {
+            color: #909399;
+            background-color: #fff;
+        }
+    }
+}

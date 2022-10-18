@@ -20,6 +20,14 @@ module.exports = {
     ],
     plugins: [
         isDEV && require.resolve('react-refresh/babel'), // 如果是开发模式,就启动react热更新插件
-        ['@babel/plugin-proposal-decorators', { legacy: true }]
+        ['@babel/plugin-proposal-decorators', { legacy: true }],
+        [
+            'import',
+            {
+                libraryName: 'antd',
+                libraryDirectory: 'es',
+                style: true // `style: true` 会加载 less 文件
+            }
+        ]
     ].filter(Boolean) // 过滤空值
 };

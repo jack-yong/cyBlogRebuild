@@ -4,7 +4,7 @@ const path = require('path');
 const ROOT_PATH = path.resolve(__dirname, '../../');
 
 const SERVER_HOST = 'localhost';
-const SERVER_PORT = 3000;
+const SERVER_PORT = 4000;
 
 const MAIN_FILE = 'index.tsx';
 const chalk = require('chalk');

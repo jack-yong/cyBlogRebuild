@@ -6,7 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { separator } = require('./constant/constant');
 const { getEntryTemplate } = require('./utils/helper');
-
+const { myAntd } = require('./constant/antd-theme');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 // 将packages拆分成为数组 ['admin','home']
 const packages = process.env.packages.split(separator);
 
@@ -46,6 +47,26 @@ module.exports = {
                     },
                     'postcss-loader',
                     'less-loader'
+                ]
+            },
+            {
+                test: /\.less$/, //匹配antd中的less文件
+                exclude: [path.resolve(ROOT_PATH, './src')],
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            lessOptions: {
+                                // antd 自定义主题
+                                modifyVars: myAntd,
+                                javascriptEnabled: true
+                            }
+                        }
+                    }
                 ]
             },
             {
@@ -132,6 +153,7 @@ module.exports = {
     plugins: [
         // 打包显示进度条
         new WebpackBar(),
+        new AntdDayjsWebpackPlugin(),
         // webpack打包不会有类型检查，强制ts类型检查
         new ForkTsCheckerWebpackPlugin({
             typescript: {

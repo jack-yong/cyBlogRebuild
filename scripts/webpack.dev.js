@@ -8,6 +8,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 // 合并公共配置,并添加开发环境配置
 module.exports = merge(baseConfig, {
+    target: 'web', // 解决热更新失效
     mode: 'development', // 开发模式,打包更加快速,省了代码优化步骤
     devtool: 'eval-cheap-module-source-map', // 源码调试模式,后面会讲
     devServer: {

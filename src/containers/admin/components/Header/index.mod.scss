@@ -1,0 +1,19 @@
+@import '../../styles/base.scss';
+
+.header {
+    background-color: #fff;
+    padding: 0;
+    height: $headerHeight;
+}
+
+.collapsedtrigger {
+    padding: 0 24px;
+    font-size: 18px;
+    line-height: $headerHeight;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.collapsedtrigger:hover {
+    color: #1890ff;
+}

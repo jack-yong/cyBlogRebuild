@@ -4,3 +4,5 @@ scripts/**
 .eslintrc.js
 
 *.config.js
+
+server/
