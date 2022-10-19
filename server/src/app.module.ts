@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UsersModule } from './modules/users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { join } from 'path';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
