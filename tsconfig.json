@@ -3,11 +3,7 @@
         // 基本配置
         "target": "ES5", // 编译成哪个版本的 es
         "module": "ESNext", // 指定生成哪个模块系统代码
-        "lib": [
-            "DOM",
-            "DOM.Iterable",
-            "ESNext"
-        ], // 编译过程中需要引入的库文件的列表
+        "lib": ["DOM", "DOM.Iterable", "ESNext"], // 编译过程中需要引入的库文件的列表
         "allowJs": false, // 允许编译 js 文件
         "jsx": "react", // react18这里也可以改成react-jsx.tsx 文件里支持 JSX
         "isolatedModules": true, // 提供额外的一些语法检查，如文件没有模块导出会报错
@@ -19,9 +15,7 @@
         "baseUrl": "./", // 根路径
         "paths": {
             // 路径映射，与 baseUrl 关联
-            "@/*": [
-                "./src/*"
-            ]
+            "@/*": ["./src/*"]
         },
         // 实验性选项
         "experimentalDecorators": true, // 启用实验性的ES装饰器
@@ -32,7 +26,5 @@
         "skipLibCheck": true, // 忽略所有的声明文件（ *.d.ts）的类型检查
         "noEmit": true // 只想使用tsc的类型检查作为函数时（当其他工具（例如Babel实际编译）时）使用它
     },
-    "include": [
-        "./src"
-    ]
+    "include": ["./src"]
 }
