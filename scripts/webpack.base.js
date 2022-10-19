@@ -53,7 +53,7 @@ module.exports = {
                 test: /\.less$/, //匹配antd中的less文件
                 exclude: [path.resolve(ROOT_PATH, './src')],
                 use: [
-                    'style-loader',
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader'
                     },

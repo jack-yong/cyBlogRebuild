@@ -2,8 +2,8 @@
 
 .content {
     background: #fff;
-    margin: 24px 16px;
+    margin: $space 16px;
     padding: 24px;
-    min-height: calc(100vh-#{$footerHeight+$space * 2});
+    min-height: calc(100vh-#{$footerHeight+$space * 2+$headerHeight});
     border-radius: $midRadius;
 }
