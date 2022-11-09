@@ -4,16 +4,16 @@ import Header from '../Header';
 import Content from '../Content';
 import Footer from '../Footer';
 // import type { MenuTheme } from 'antd';
+import s from './index.mod.scss';
 
 interface MainProps {
-    setCollapsed: any;
-    collapsed: boolean;
+    setTheme: any;
 }
 
-const index: React.FC<MainProps> = ({ setCollapsed, collapsed }) => {
+const index: React.FC<MainProps> = ({ setTheme }) => {
     return (
-        <Layout>
-            <Header setCollapsed={setCollapsed} collapsed={collapsed} />
+        <Layout className={s.layout}>
+            <Header setTheme={setTheme} />
             <Content />
             <Footer />
         </Layout>

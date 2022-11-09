@@ -1,9 +1,10 @@
 @import '../../styles/base.scss';
 
 .header {
-    background-color: #fff;
+    background-color: $themeColor;
     padding: 0;
     height: $headerHeight;
+    color: $textColor;
 }
 
 .collapsedtrigger {

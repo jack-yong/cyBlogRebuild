@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { MenuTheme } from 'antd';
 import s from './index.mod.scss';
 import Sider from 'antd/lib/layout/Sider';
@@ -6,19 +6,19 @@ import Menu from './Menu';
 import Icon from '@/containers/admin/assets/icons/icon.svg';
 interface SiderProps {
     theme?: MenuTheme;
-    collapsed: boolean;
 }
 
-const index: React.FC<SiderProps> = ({ theme = 'light', collapsed }) => {
-    // const [collapsed, setCollapsed] = useState(false);
+const index: React.FC<SiderProps> = ({ theme = 'light' }) => {
+    const [collapsed, setCollapsed] = useState(false);
     return (
         <>
             <Sider
-                trigger={null}
+                // trigger={null}
                 collapsible
                 collapsed={collapsed}
+                onCollapse={value => setCollapsed(value)}
                 theme={theme}
-                collapsedWidth={100}
+                collapsedWidth={63}
                 className={s.sider}
             >
                 <div className={s.header}>
