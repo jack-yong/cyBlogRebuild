@@ -5,25 +5,20 @@ import {
   Get,
   Param,
   Patch,
-  Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { CreateUserDto } from './dto/create-user.dto';
-import {
-  ApiBearerAuth,
-  ApiTags,
-  ApiBody,
-  ApiResponse,
-  ApiQuery,
-} from '@nestjs/swagger';
-import { User, UserRole } from './entities/user.entity';
+import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('users')
 @ApiBearerAuth()
 @Controller('/users')
+@UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -43,12 +38,9 @@ export class UsersController {
     return this.usersService.findone(id);
   }
 
-  //创建用户的接口
-  @Post('/create')
-  @ApiBody({ description: '填写更新内容' })
-  create(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto instanceof CreateUserDto);
-    return this.usersService.create(createUserDto);
+  @Get('/findUserByEmail/:email')
+  findUserByEmail(@Param('id') email: string) {
+    return this.usersService.findUserByEmail(email);
   }
 
   @Patch('/update/:id')

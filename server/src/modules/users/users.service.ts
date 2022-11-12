@@ -5,8 +5,12 @@ import { User } from './entities/user.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { RCode } from '../../common/constant/rcode';
+import { Response } from 'src/common/interface/response.interface';
 @Injectable()
 export class UsersService {
+  private response: Response;
+
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<User>,
@@ -14,24 +18,49 @@ export class UsersService {
     private readonly connection: Connection,
   ) {}
 
-  async findAll(paginationQuery: PaginationQueryDto): Promise<User[]> {
-    const { limit, offset } = paginationQuery;
-    return await this.userModel.find().skip(offset).limit(limit).exec();
+  async findAll(paginationQuery: PaginationQueryDto) {
+    try {
+      const { limit, offset } = paginationQuery;
+      const users = await this.userModel
+        .find()
+        .skip(offset)
+        .limit(limit)
+        .exec();
+      this.response = { code: RCode.OK, msg: '获取用户成功', data: users };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取用户失败',
+        data: error.response,
+      };
+      return this.response;
+    }
   }
 
   //查找指定用户的service方法
   async findone(id: string) {
-    const user = await this.userModel.findById({ _id: id }).exec();
-    if (!user) {
-      throw new NotFoundException(`User #${id} not found`);
+    try {
+      const user = await this.userModel.findById({ _id: id }).exec();
+      if (!user) {
+        throw new NotFoundException(`User #${id} not found`);
+      }
+      this.response = { code: RCode.OK, msg: '获取用户成功', data: user };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取用户失败',
+        data: error.response,
+      };
+      return this.response;
     }
-    return user;
   }
 
-  //创建新用户的service方法
-  create(createUserDto: CreateUserDto) {
-    const user = new this.userModel(createUserDto);
-    return user.save();
+  //根据用户的email查找用户的service方法
+  async findUserByEmail(email: string) {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    return user;
   }
 
   //更新用户的service方法

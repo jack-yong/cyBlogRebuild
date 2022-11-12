@@ -2,6 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './common/filters/http-exception.filter';
+import { ResponseInterceptor } from './common/interceptor/response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +20,12 @@ async function bootstrap() {
       },
     }),
   );
+  //配置全局过滤器
+  app.useGlobalFilters(new HttpExceptionFilter());
+
+  //配置全局拦截器
+  app.useGlobalInterceptors(new ResponseInterceptor());
+
   // 设置swagger文档相关配置
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Cyong-Blog api 文档')

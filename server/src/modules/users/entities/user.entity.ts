@@ -7,6 +7,11 @@ export enum UserRole {
   Admin = 'Admin',
   User = 'User',
 }
+
+export enum IsDelete {
+  Death = '0',
+  Alive = '1',
+}
 @Schema()
 export class User extends Document {
   //mongoose默认为用户添加了用户id
@@ -50,8 +55,11 @@ export class User extends Document {
 
   //用户是否被删除
   @Prop()
-  @ApiProperty({ example: 'false', description: '用户是否被删除' })
-  isDelete: boolean;
+  @ApiProperty({
+    example: '0 | 1 ',
+    description: '用户是否被删除,其中0表示删除,1表示未被删除',
+  })
+  isDelete: IsDelete;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
