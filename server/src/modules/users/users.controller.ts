@@ -14,6 +14,8 @@ import { ApiBearerAuth, ApiTags, ApiResponse } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { RCode } from 'src/common/constant/rcode';
+import { Response } from 'src/common/interface/response.interface';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -21,6 +23,7 @@ import { AuthGuard } from '@nestjs/passport';
 @UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+  private response: Response;
 
   @Get('/findAll')
   @ApiResponse({
@@ -34,13 +37,15 @@ export class UsersController {
 
   @Get('/findone/:id')
   findOne(@Param('id') id: string) {
-    console.log(typeof id);
+    // console.log(typeof id);
     return this.usersService.findone(id);
   }
 
   @Get('/findUserByEmail/:email')
-  findUserByEmail(@Param('id') email: string) {
-    return this.usersService.findUserByEmail(email);
+  async findUserByEmail(@Param('email') email: string) {
+    const userinfo = await this.usersService.findUserByEmail(email);
+    this.response = { code: RCode.OK, msg: '获取用户成功', data: userinfo };
+    return this.response;
   }
 
   @Patch('/update/:id')
