@@ -3,7 +3,6 @@ import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 import { User } from './entities/user.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RCode } from '../../common/constant/rcode';
 import { Response } from 'src/common/interface/response.interface';
@@ -60,6 +59,7 @@ export class UsersService {
   //根据用户的email查找用户的service方法
   async findUserByEmail(email: string) {
     const user = await this.userModel.findOne({ email: email }).exec();
+    console.log(user, email, '---------------------');
     return user;
   }
 
