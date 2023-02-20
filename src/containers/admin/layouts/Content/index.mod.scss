@@ -8,3 +8,13 @@
     border-radius: $midRadius;
     color: $textColor;
 }
+
+.breadcrumb {
+    margin-left: 16px;
+    margin-top: $space;
+}
+
+.bItem {
+    color: $textColor !important;
+
+}
