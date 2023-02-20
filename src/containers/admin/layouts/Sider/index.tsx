@@ -1,31 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { MenuTheme } from 'antd';
 import s from './index.mod.scss';
 import Sider from 'antd/lib/layout/Sider';
 import Menu from './Menu';
 import Icon from '@/containers/admin/assets/icons/icon.svg';
-interface SiderProps {
-    theme?: MenuTheme;
-}
+import { useSnapshot } from 'valtio';
+import { configStore } from '../../store';
 
-const index: React.FC<SiderProps> = ({ theme = 'light' }) => {
-    const [collapsed, setCollapsed] = useState(false);
+const index: React.FC = () => {
+    const { isCollapsed, theme } = useSnapshot(configStore);
     return (
         <>
             <Sider
-                // trigger={null}
                 collapsible
-                collapsed={collapsed}
-                onCollapse={value => setCollapsed(value)}
+                collapsed={isCollapsed}
+                onCollapse={value => (configStore.isCollapsed = value)}
                 theme={theme}
-                collapsedWidth={63}
                 className={s.sider}
             >
                 <div className={s.header}>
                     <img src={Icon} className={s.logo} />
                     <span className={s.title}>CyBlog</span>
                 </div>
-                <Menu theme={theme} />
+                <Menu />
             </Sider>
         </>
     );

@@ -1,0 +1,12 @@
+@import '../styles/base.scss';
+
+.adminContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.layout {
+    background: $themeColor1;
+    min-height: 100vh;
+}
