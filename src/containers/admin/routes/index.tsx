@@ -29,6 +29,7 @@ const Messages = lazy(() => import('@/containers/admin/pages/Messages'));
 const Links = lazy(() => import('@/containers/admin/pages/Links'));
 const Devlogs = lazy(() => import('@/containers/admin/pages/Devlogs'));
 const Talks = lazy(() => import('@/containers/admin/pages/Talks'));
+const Login = lazy(() => import('@/containers/admin/pages/Login'));
 
 const routes: RouteObject[] = [
     {
@@ -147,8 +148,8 @@ const routes: RouteObject[] = [
         ]
     },
     {
-        path: '/login'
-        // element: <Login />,
+        path: '/login',
+        element: <Login />
     }
 ];
 
