@@ -3,19 +3,21 @@ import { RCode } from 'src/common/constant/rcode';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'src/common/interface/response.interface';
-import { User } from '../users/entities/user.entity';
+import { IsDelete, User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+// import { InjectModel } from '@nestjs/mongoose';
+// import { Model } from 'mongoose';
 
 @Injectable()
 export class AuthService {
   private response: Response;
 
   constructor(
-    @InjectModel(User.name)
-    private readonly userModel: Model<User>,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
@@ -32,7 +34,10 @@ export class AuthService {
         this.response = { code: RCode.FAIL, msg: '用户密码错误' };
         return this.response;
       } else {
-        const payload = { userId: userinfo._id, password: userinfo.password };
+        const payload = {
+          userId: userinfo.userId,
+          password: userinfo.password,
+        };
         this.response = {
           code: RCode.OK,
           msg: '登录成功',
@@ -57,7 +62,16 @@ export class AuthService {
   //创建新用户的service方法
   async create(createUserDto: CreateUserDto) {
     try {
-      const user = await new this.userModel(createUserDto).save();
+      const { nickname, password, email, avatar, role } = createUserDto;
+      const user = new User();
+      user.nickname = nickname;
+      user.avatar = avatar;
+      user.email = email;
+      user.isDelete = IsDelete.Alive;
+      user.password = password;
+      user.role = role;
+      user.recentlyLanched = new Date();
+      this.usersRepository.save(user);
       this.response = { code: RCode.OK, msg: '新建用户成功', data: user };
       return this.response;
     } catch (error) {

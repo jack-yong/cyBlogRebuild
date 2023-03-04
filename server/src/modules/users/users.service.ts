@@ -1,30 +1,36 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
-import { Connection, Model } from 'mongoose';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Like, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
-import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
+// import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RCode } from '../../common/constant/rcode';
 import { Response } from 'src/common/interface/response.interface';
+import { type } from 'os';
 @Injectable()
 export class UsersService {
   private response: Response;
 
   constructor(
-    @InjectModel(User.name)
-    private readonly userModel: Model<User>,
-    @InjectConnection()
-    private readonly connection: Connection,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) {}
 
-  async findAll(paginationQuery: PaginationQueryDto) {
+  async findAll(query: { keyWord?: string; page: number; pageSize: number }) {
     try {
-      const { limit, offset } = paginationQuery;
-      const users = await this.userModel
-        .find()
-        .skip(offset)
-        .limit(limit)
-        .exec();
+      const users = await this.usersRepository
+        .find
+        // {
+        //   where: {
+        //     nickname: Like(`%${query.keyWord}%`)
+        //   },
+        //   order: {
+        //     userId: "DESC"
+        //   },
+        //   skip: (query.page - 1) * query.pageSize,
+        //   take: query.pageSize,
+        // }
+        ();
       this.response = { code: RCode.OK, msg: '获取用户成功', data: users };
       return this.response;
     } catch (error) {
@@ -40,7 +46,7 @@ export class UsersService {
   //查找指定用户的service方法
   async findone(id: string) {
     try {
-      const user = await this.userModel.findById({ _id: id }).exec();
+      const user = await this.usersRepository.findOneBy({ userId: id });
       if (!user) {
         throw new NotFoundException(`User #${id} not found`);
       }
@@ -56,27 +62,38 @@ export class UsersService {
     }
   }
 
-  //根据用户的email查找用户的service方法
+  // //根据用户的email查找用户的service方法
   async findUserByEmail(email: string) {
-    const user = await this.userModel.findOne({ email: email }).exec();
-    console.log(user, email, '---------------------');
+    const user = await this.usersRepository.findOneBy({ email: email });
+    // console.log(user, email, '---------------------');
     return user;
   }
 
-  //更新用户的service方法
+  // //更新用户的service方法
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const existingUser = await this.userModel
-      .findByIdAndUpdate({ _id: id }, { $set: updateUserDto }, { new: true })
-      .exec();
-    if (!existingUser) {
-      throw new NotFoundException(`User #${id} not found`);
+    try {
+      const existingUser = await this.usersRepository.update(
+        { userId: id },
+        updateUserDto,
+      );
+      if (!existingUser) {
+        throw new NotFoundException(`用户 #${id} 不存在`);
+      }
+      this.response = { code: RCode.OK, msg: '更新用户成功' };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '更新用户失败',
+        data: error.response,
+      };
+      return this.response;
     }
-    return existingUser;
   }
 
-  //删除指定用户的service方法
+  // //删除指定用户的service方法
   async remove(id: string) {
-    const user = await this.userModel.findByIdAndRemove({ _id: id }).exec();
+    const user = await this.usersRepository.delete({ userId: id });
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }

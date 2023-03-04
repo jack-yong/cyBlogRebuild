@@ -7,7 +7,7 @@ export class CreateUserDto {
 
   //用户名
   @IsString()
-  readonly username: string;
+  readonly nickname: string;
 
   //用户密码
   @IsString()
@@ -22,17 +22,17 @@ export class CreateUserDto {
   readonly avatar: string;
 
   //用户昵称
-  @IsString()
-  readonly nickname: string;
+  // @IsString()
+  // readonly nickname: string;
 
   //用户角色
   @IsEnum(UserRole)
   readonly role: UserRole;
 
   //用户是否被删除
-  @IsEnum(IsDelete)
-  readonly isDelete: IsDelete;
+  // @IsEnum(IsDelete)
+  // readonly isDelete: IsDelete;
 
-  @IsDate()
-  readonly recentlyLanched: Date;
+  // @IsDate()
+  // readonly recentlyLanched: Date;
 }

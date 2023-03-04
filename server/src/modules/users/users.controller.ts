@@ -31,8 +31,8 @@ export class UsersController {
     description: '获取系统中的所有用户(可分页)',
     type: User,
   })
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    return this.usersService.findAll(paginationQuery);
+  findAll(@Query() query: { keyWord: string; page: number; pageSize: number }) {
+    return this.usersService.findAll(query);
   }
 
   @Get('/findone/:id')
