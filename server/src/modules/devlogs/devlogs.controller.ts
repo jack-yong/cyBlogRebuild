@@ -13,10 +13,9 @@ import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { DevlogsService } from './devlogs.service';
 import { CreateDevlogDto } from './dto/create-devlog.dto';
 import { UpdateDevlogDto } from './dto/update-devlog.dto';
-
+@ApiBearerAuth()
 @ApiTags('devlogs')
 @Controller('devlogs')
-@ApiBearerAuth()
 // @UseGuards(AuthGuard('jwt'))
 export class DevlogsController {
   constructor(private readonly devlogsService: DevlogsService) {}

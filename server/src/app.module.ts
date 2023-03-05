@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { DataSource } from 'typeorm';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { DevlogsModule } from './modules/devlogs/devlogs.module';
+import { PortfolioModule } from './modules/portfolio/portfolio.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -26,6 +27,7 @@ import { DevlogsModule } from './modules/devlogs/devlogs.module';
     AuthModule,
     CategoriesModule,
     DevlogsModule,
+    PortfolioModule,
   ],
 })
 export class AppModule {
