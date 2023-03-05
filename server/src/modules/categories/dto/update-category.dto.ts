@@ -1,7 +1,7 @@
 //使用@nestjs/swagger出现了问题
 import { PartialType } from '@nestjs/mapped-types';
 import { IsEnum, IsInt, IsOptional } from 'class-validator';
-import { IsDelete } from 'src/common/dto/type';
+import { IsDelete } from 'src/common/interface/common.interface';
 import { CreateCategoryDto } from './create-category.dto';
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {

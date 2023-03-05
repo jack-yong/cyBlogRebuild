@@ -6,7 +6,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
 import { Response } from 'src/common/interface/response.interface';
-import { IsDelete } from 'src/common/dto/type';
+import { IsDelete } from 'src/common/interface/common.interface';
 
 @Injectable()
 export class CategoriesService {
@@ -39,7 +39,7 @@ export class CategoriesService {
     }
   }
 
-  async findAll(query: { keyWord?: string; page: number; pageSize: number }) {
+  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
     try {
       const users = await this.categoryRepository.find({
         where: {

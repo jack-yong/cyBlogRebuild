@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { IsDelete } from 'src/common/dto/type';
+import { IsDelete } from 'src/common/interface/common.interface';
 // import { InjectModel } from '@nestjs/mongoose';
 // import { Model } from 'mongoose';
 

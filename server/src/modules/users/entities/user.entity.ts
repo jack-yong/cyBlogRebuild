@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDelete, UserRole } from 'src/common/dto/type';
+import { IsDelete, UserRole } from 'src/common/interface/common.interface';
 
 @Entity({ name: 'tb_user' })
 export class User {

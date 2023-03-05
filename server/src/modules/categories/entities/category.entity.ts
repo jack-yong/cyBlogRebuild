@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDelete } from 'src/common/dto/type';
+import { IsDelete } from 'src/common/interface/common.interface';
 import {
   Column,
   CreateDateColumn,

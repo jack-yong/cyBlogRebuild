@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { DataSource } from 'typeorm';
 import { CategoriesModule } from './modules/categories/categories.module';
+import { DevlogsModule } from './modules/devlogs/devlogs.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -24,6 +25,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
     UsersModule,
     AuthModule,
     CategoriesModule,
+    DevlogsModule,
   ],
 })
 export class AppModule {
