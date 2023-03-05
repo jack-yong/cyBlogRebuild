@@ -21,7 +21,7 @@ import { FindAllUserDto } from './dto/findAll-user.dto';
 @ApiTags('users')
 @ApiBearerAuth()
 @Controller('/users')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   private response: Response;
@@ -55,8 +55,8 @@ export class UsersController {
   }
 
   //删除指定用户的接口
-  @Delete('/delete/:id')
-  delete(@Param('id') id: string) {
-    return this.usersService.remove(id);
-  }
+  // @Delete('/delete/:id')
+  // delete(@Param('id') id: string) {
+  //   return this.usersService.remove(id);
+  // }
 }

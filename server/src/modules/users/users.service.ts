@@ -43,9 +43,7 @@ export class UsersService {
   async findone(id: string) {
     try {
       const user = await this.usersRepository.findOneBy({ userId: id });
-      if (!user) {
-        throw new NotFoundException(`User #${id} not found`);
-      }
+      if (!user) throw new NotFoundException(`用户 #${id} 未找到`);
       this.response = { code: RCode.OK, msg: '获取用户成功', data: user };
       return this.response;
     } catch (error) {
@@ -90,6 +88,7 @@ export class UsersService {
   // //删除指定用户的service方法
   async remove(id: string) {
     const user = await this.usersRepository.delete({ userId: id });
+    // console.log(user, 'removeremoveremove')
     if (!user) {
       throw new NotFoundException(`User #${id} not found`);
     }

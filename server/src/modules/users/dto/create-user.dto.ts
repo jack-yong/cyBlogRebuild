@@ -1,5 +1,5 @@
-import { IsString, IsEnum, IsDate } from 'class-validator';
-import { UserRole, IsDelete } from '../entities/user.entity';
+import { IsString, IsEnum } from 'class-validator';
+import { UserRole } from 'src/common/dto/type';
 export class CreateUserDto {
   //IsString验证器帮助我们验证dto的字段是否是我们需要的类型
   //使用readonly关键字可以帮助我们保持不变性，用户姓名

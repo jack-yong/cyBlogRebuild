@@ -3,6 +3,7 @@ import { UsersModule } from './modules/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
 import { DataSource } from 'typeorm';
+import { CategoriesModule } from './modules/categories/categories.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -13,7 +14,7 @@ import { DataSource } from 'typeorm';
       host: 'localhost', //host
       port: 3306, //端口
       database: 'cyblog', //库名
-      timezone: 'Z', //解决时区问题
+      // timezone: 'Z', //解决时区问题
       // entities: [__dirname + '/**/*.entity{.ts,.js}'], //实体文件
       // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
       retryDelay: 500, //重试连接数据库间隔
@@ -22,6 +23,7 @@ import { DataSource } from 'typeorm';
     }),
     UsersModule,
     AuthModule,
+    CategoriesModule,
   ],
 })
 export class AppModule {

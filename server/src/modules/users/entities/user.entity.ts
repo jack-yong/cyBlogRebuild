@@ -5,21 +5,11 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsDelete, UserRole } from 'src/common/dto/type';
 
-export enum UserRole {
-  Admin = 'Admin',
-  User = 'User',
-}
-
-export enum IsDelete {
-  Death = '0',
-  Alive = '1',
-}
 @Entity({ name: 'tb_user' })
 export class User {
-  //mongoose默认为用户添加了用户id
-  //
-  // _id: string;
+  //用户id: string;
   @PrimaryGeneratedColumn('uuid', { name: 'user_id' })
   @ApiProperty({ example: 'cyong', description: '用户id' })
   userId: string;

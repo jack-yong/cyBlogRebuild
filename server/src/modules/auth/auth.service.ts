@@ -3,11 +3,12 @@ import { RCode } from 'src/common/constant/rcode';
 import { UsersService } from '../users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { Response } from 'src/common/interface/response.interface';
-import { IsDelete, User } from '../users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { IsDelete } from 'src/common/dto/type';
 // import { InjectModel } from '@nestjs/mongoose';
 // import { Model } from 'mongoose';
 
