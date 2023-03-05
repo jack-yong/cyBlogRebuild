@@ -25,7 +25,6 @@ async function bootstrap() {
 
   //配置全局拦截器
   app.useGlobalInterceptors(new ResponseInterceptor());
-
   // 设置swagger文档相关配置
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Cyong-Blog api 文档')

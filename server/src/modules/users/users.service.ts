@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RCode } from '../../common/constant/rcode';
 import { Response } from 'src/common/interface/response.interface';
-import { type } from 'os';
 @Injectable()
 export class UsersService {
   private response: Response;
@@ -18,19 +17,16 @@ export class UsersService {
 
   async findAll(query: { keyWord?: string; page: number; pageSize: number }) {
     try {
-      const users = await this.usersRepository
-        .find
-        // {
-        //   where: {
-        //     nickname: Like(`%${query.keyWord}%`)
-        //   },
-        //   order: {
-        //     userId: "DESC"
-        //   },
-        //   skip: (query.page - 1) * query.pageSize,
-        //   take: query.pageSize,
-        // }
-        ();
+      const users = await this.usersRepository.find({
+        where: {
+          nickname: Like(`%${query.keyWord}%`),
+        },
+        order: {
+          userId: 'DESC',
+        },
+        skip: (query.page - 1) * query.pageSize,
+        take: query.pageSize,
+      });
       this.response = { code: RCode.OK, msg: '获取用户成功', data: users };
       return this.response;
     } catch (error) {

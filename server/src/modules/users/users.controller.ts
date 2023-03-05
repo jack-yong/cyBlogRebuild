@@ -16,6 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { RCode } from 'src/common/constant/rcode';
 import { Response } from 'src/common/interface/response.interface';
+import { FindAllUserDto } from './dto/findAll-user.dto';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -31,7 +32,7 @@ export class UsersController {
     description: '获取系统中的所有用户(可分页)',
     type: User,
   })
-  findAll(@Query() query: { keyWord: string; page: number; pageSize: number }) {
+  findAll(@Query() query: FindAllUserDto) {
     return this.usersService.findAll(query);
   }
 
