@@ -38,7 +38,7 @@ export class CategoriesController {
     return this.categoriesService.findOne(id);
   }
 
-  @Patch('/update/:id')
+  @Post('/update/:id')
   update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,

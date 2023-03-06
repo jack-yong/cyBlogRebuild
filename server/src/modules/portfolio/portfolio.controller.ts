@@ -36,7 +36,7 @@ export class PortfolioController {
     return this.portfolioService.findOne(id);
   }
 
-  @Patch('/update/:id')
+  @Post('/update/:id')
   update(
     @Param('id') id: string,
     @Body() updatePortfolioDto: UpdatePortfolioDto,

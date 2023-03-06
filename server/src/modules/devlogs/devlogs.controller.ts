@@ -35,7 +35,7 @@ export class DevlogsController {
     return this.devlogsService.findOne(id);
   }
 
-  @Patch('/update/:id')
+  @Post('/update/:id')
   update(@Param('id') id: string, @Body() updateDevlogDto: UpdateDevlogDto) {
     return this.devlogsService.update(id, updateDevlogDto);
   }

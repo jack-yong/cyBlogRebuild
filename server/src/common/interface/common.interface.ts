@@ -14,3 +14,9 @@ export enum devLogType {
   refactor = 2,
   perf = 3,
 }
+
+export enum linkType {
+  friend = 0,
+  recommend = 1,
+  tool = 2,
+}
