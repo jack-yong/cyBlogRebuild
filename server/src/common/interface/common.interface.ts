@@ -20,3 +20,8 @@ export enum linkType {
   recommend = 1,
   tool = 2,
 }
+
+export enum IsRead {
+  read = 0,
+  unread = 1,
+}
