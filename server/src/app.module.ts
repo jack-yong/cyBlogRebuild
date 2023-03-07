@@ -8,6 +8,7 @@ import { DevlogsModule } from './modules/devlogs/devlogs.module';
 import { PortfolioModule } from './modules/portfolio/portfolio.module';
 import { LinksModule } from './modules/links/links.module';
 import { DspeechModule } from './modules/dspeech/dspeech.module';
+import { TagsModule } from './modules/tags/tags.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -32,6 +33,7 @@ import { DspeechModule } from './modules/dspeech/dspeech.module';
     PortfolioModule,
     LinksModule,
     DspeechModule,
+    TagsModule,
   ],
 })
 export class AppModule {
