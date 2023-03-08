@@ -25,3 +25,8 @@ export enum IsRead {
   read = 0,
   unread = 1,
 }
+
+export enum IsPass {
+  pass = 0,
+  unpass = 1,
+}

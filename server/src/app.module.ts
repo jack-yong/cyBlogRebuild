@@ -10,6 +10,7 @@ import { LinksModule } from './modules/links/links.module';
 import { DspeechModule } from './modules/dspeech/dspeech.module';
 import { TagsModule } from './modules/tags/tags.module';
 import { LmrModule } from './modules/lmr/lmr.module';
+import { CommentsModule } from './modules/comments/comments.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -37,6 +38,7 @@ import { LmrModule } from './modules/lmr/lmr.module';
     DspeechModule,
     TagsModule,
     LmrModule,
+    CommentsModule,
   ],
 })
 export class AppModule {
