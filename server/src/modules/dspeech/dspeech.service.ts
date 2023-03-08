@@ -24,7 +24,7 @@ export class DspeechService {
       dspeech.dspeechPicsUrl = dspeechPicsUrl;
       dspeech.isDeleted = IsDelete.Alive;
       dspeech.dspeechDate = new Date();
-      this.dspeechRepository.save(dspeech);
+      await this.dspeechRepository.save(dspeech);
       this.response = { code: RCode.OK, msg: '新建说说成功', data: dspeech };
       return this.response;
     } catch (error) {

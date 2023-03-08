@@ -26,7 +26,7 @@ export class LmrService {
       lmr.isRead = IsRead.unread;
       lmr.isDeleted = IsDelete.Alive;
       lmr.lmrDate = new Date();
-      this.lmrRepository.save(lmr);
+      await this.lmrRepository.save(lmr);
       this.response = { code: RCode.OK, msg: '新建留言成功', data: lmr };
       return this.response;
     } catch (error) {

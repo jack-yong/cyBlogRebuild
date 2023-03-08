@@ -26,7 +26,7 @@ export class CategoriesService {
       category.categoryRank = 0;
       category.categoryCreateTime = new Date();
       category.isDeleted = IsDelete.Alive;
-      this.categoryRepository.save(category);
+      await this.categoryRepository.save(category);
       this.response = { code: RCode.OK, msg: '新建类别成功', data: category };
       return this.response;
     } catch (error) {

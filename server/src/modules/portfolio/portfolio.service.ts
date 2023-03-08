@@ -31,7 +31,7 @@ export class PortfolioService {
       portfolio.portfolioUrl = portfolioUrl;
       portfolio.isDeleted = IsDelete.Alive;
       portfolio.portfolioDate = new Date();
-      this.portfolioRepository.save(portfolio);
+      await this.portfolioRepository.save(portfolio);
       this.response = { code: RCode.OK, msg: '新建作品成功', data: portfolio };
       return this.response;
     } catch (error) {

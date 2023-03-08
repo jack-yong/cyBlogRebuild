@@ -24,7 +24,7 @@ export class TagsService {
       tag.tagColor = tagColor;
       tag.isDeleted = IsDelete.Alive;
       tag.tagCreateTime = new Date();
-      this.tagRepository.save(tag);
+      await this.tagRepository.save(tag);
       this.response = { code: RCode.OK, msg: '新建标签成功', data: tag };
       return this.response;
     } catch (error) {

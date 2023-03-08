@@ -72,7 +72,7 @@ export class AuthService {
       user.password = password;
       user.role = role;
       user.recentlyLanched = new Date();
-      this.usersRepository.save(user);
+      await this.usersRepository.save(user);
       this.response = { code: RCode.OK, msg: '新建用户成功', data: user };
       return this.response;
     } catch (error) {

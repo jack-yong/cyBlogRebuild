@@ -29,7 +29,7 @@ export class LinksService {
       link.linkRank = 0;
       link.isDeleted = IsDelete.Alive;
       link.linkDate = new Date();
-      this.linkRepository.save(link);
+      await this.linkRepository.save(link);
       this.response = { code: RCode.OK, msg: '新建友链成功', data: link };
       return this.response;
     } catch (error) {

@@ -26,7 +26,7 @@ export class DevlogsService {
       devlog.dlContent = dlContent;
       devlog.isDeleted = IsDelete.Alive;
       devlog.dlDate = new Date();
-      this.devlogRepository.save(devlog);
+      await this.devlogRepository.save(devlog);
       this.response = { code: RCode.OK, msg: '新建日志成功', data: devlog };
       return this.response;
     } catch (error) {
