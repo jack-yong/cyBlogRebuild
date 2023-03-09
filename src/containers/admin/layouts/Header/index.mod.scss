@@ -2,9 +2,16 @@
 
 .header {
     background-color: $themeColor;
-    padding-left: 40px;
+    padding: 0 20px;
     height: $headerHeight;
     color: $textColor;
+}
+
+.headerSwitch {
+    float: right;
+    margin-top: $headerHeight/2;
+    transform: translate(-50%, -50%);
+    background-color: #1668dc;
 }
 
 .collapsedtrigger {
