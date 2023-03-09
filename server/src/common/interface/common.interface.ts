@@ -30,3 +30,13 @@ export enum IsPass {
   pass = 0,
   unpass = 1,
 }
+
+export enum BlogStatus {
+  draft = 0,
+  publish = 1,
+}
+
+export enum EnableComment {
+  able = 0,
+  unable = 1,
+}

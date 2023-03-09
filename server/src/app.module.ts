@@ -11,6 +11,7 @@ import { DspeechModule } from './modules/dspeech/dspeech.module';
 import { TagsModule } from './modules/tags/tags.module';
 import { LmrModule } from './modules/lmr/lmr.module';
 import { CommentsModule } from './modules/comments/comments.module';
+import { BlogsModule } from './modules/blogs/blogs.module';
 @Module({
   imports: [
     //将数据库的相关配置异步加载到MongooseModule中
@@ -21,6 +22,7 @@ import { CommentsModule } from './modules/comments/comments.module';
       host: 'localhost', //host
       port: 3306, //端口
       database: 'cyblog', //库名
+      // charset: 'utf8mb4',
       // timezone: 'Z', //解决时区问题
       // entities: [__dirname + '/**/*.entity{.ts,.js}'], //实体文件
       // synchronize: true, //synchronize字段代表是否自动将实体类同步到数据库
@@ -39,6 +41,7 @@ import { CommentsModule } from './modules/comments/comments.module';
     TagsModule,
     LmrModule,
     CommentsModule,
+    BlogsModule,
   ],
 })
 export class AppModule {
