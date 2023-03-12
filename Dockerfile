@@ -1,6 +1,12 @@
 FROM nginx:latest
 USER root
 
+
+# 安装项目依赖包
+RUN npm install
+
+RUN npm run build
+
 # 将项目根目录下dist文件夹下的所有文件复制到镜像中 /usr/share/nginx/html/ 目录下
 COPY dist/ /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
