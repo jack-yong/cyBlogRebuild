@@ -4,9 +4,7 @@ import ErrorBoundary from '../../components/ErrorBoundary';
 import { Link, matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import s from './index.mod.scss';
 import routes from '../../routes';
-import { HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { configStore } from '../../store';
-import { useSnapshot } from 'valtio';
+import { HomeOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 
@@ -36,7 +34,7 @@ const index: React.FC = () => {
             </Space>
             <Content className={s.content}>
                 <ErrorBoundary>
-                    <Suspense fallback={<Spin style={{ margin: 'auto' }} size='large' />}>
+                    <Suspense fallback={<Spin className={s.spinStyle} size='large' />}>
                         <Outlet />
                     </Suspense>
                 </ErrorBoundary>

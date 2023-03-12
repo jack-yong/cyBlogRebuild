@@ -35,6 +35,9 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('api', app, document);
 
+  //允许跨域
+  app.enableCors();
+
   await app.listen(5000);
 }
 bootstrap();

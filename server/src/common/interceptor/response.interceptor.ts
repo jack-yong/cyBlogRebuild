@@ -19,6 +19,7 @@ export class ResponseInterceptor implements NestInterceptor {
           data: content.data || {},
           code: content.code || RCode.OK,
           msg: content.msg || null,
+          timestamp: Date.now(),
         };
       }),
     );

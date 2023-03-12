@@ -20,7 +20,7 @@ const index: React.FC = () => {
             >
                 <div className={s.header}>
                     <img src={Icon} className={s.logo} />
-                    <span className={s.title}>CyBlog</span>
+                    {!isCollapsed && <span className={s.title}>CyBlog</span>}
                 </div>
                 <Menu />
             </Sider>

@@ -11,7 +11,7 @@
     float: right;
     margin-top: $headerHeight/2;
     transform: translate(-50%, -50%);
-    background-color: #1668dc;
+    background-color: rgba($color: #1668dc, $alpha: 0.8);
 }
 
 .collapsedtrigger {
@@ -24,4 +24,14 @@
 
 .collapsedtrigger:hover {
     color: #1890ff;
+}
+
+.avatar {
+    float: right;
+    margin-top: $headerHeight/2;
+    transform: translate(0, -50%);
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    border: 2px dashed rgba($color: #1668dc, $alpha: 0.4);
 }

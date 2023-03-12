@@ -5,8 +5,9 @@ export interface themeType {
     setTheme?: any;
 }
 
-export interface UserInfo {
-    uid: number;
-    name: string;
-    token: string;
+export interface Response<T = unknown> {
+    data: T;
+    resCode: number;
+    msg: string;
+    timestamp: number;
 }

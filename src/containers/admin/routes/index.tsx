@@ -16,6 +16,7 @@ import {
 import React from 'react';
 import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
+import Login from '@/containers/admin/pages/Login';
 
 const BaseLayout = lazy(() => import('@/containers/admin/layouts'));
 const Articles = lazy(() => import('@/containers/admin/pages/Articles'));
@@ -29,7 +30,7 @@ const Messages = lazy(() => import('@/containers/admin/pages/Messages'));
 const Links = lazy(() => import('@/containers/admin/pages/Links'));
 const Devlogs = lazy(() => import('@/containers/admin/pages/Devlogs'));
 const Talks = lazy(() => import('@/containers/admin/pages/Talks'));
-const Login = lazy(() => import('@/containers/admin/pages/Login'));
+const Result404 = lazy(() => import('@/containers/admin/pages/Result404'));
 
 const routes: RouteObject[] = [
     {
@@ -150,6 +151,10 @@ const routes: RouteObject[] = [
     {
         path: '/login',
         element: <Login />
+    },
+    {
+        path: '*',
+        element: <Result404 />
     }
 ];
 
