@@ -1,3 +1,4 @@
+FROM node:alpine
 FROM nginx:latest
 USER root
 

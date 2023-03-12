@@ -1,6 +1,6 @@
 const path = require('path');
 const WebpackBar = require('webpackbar');
-const { ROOT_PATH } = require('./constant/constant');
+const { ROOT_PATH, ENV_CONFIG_PATH } = require('./constant/constant');
 const { isDevelopment, isProduction } = require('./constant/env');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -8,6 +8,8 @@ const { separator } = require('./constant/constant');
 const { getEntryTemplate } = require('./utils/helper');
 const { myAntd } = require('./constant/antd-theme');
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
+const DotenvPlugin = require('dotenv-webpack');
+
 // 将packages拆分成为数组 ['admin','home']
 const packages = process.env.packages.split(separator);
 
@@ -159,6 +161,9 @@ module.exports = {
             typescript: {
                 configFile: path.resolve(ROOT_PATH, './tsconfig.json')
             }
+        }),
+        new DotenvPlugin({
+            path: ENV_CONFIG_PATH
         }),
         // 同时动态生成对应的htmlPlugins
         ...htmlPlugins

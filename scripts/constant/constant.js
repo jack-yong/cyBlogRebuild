@@ -1,5 +1,6 @@
 // 一些公共常量
 const path = require('path');
+const dotenv = require('dotenv');
 
 const ROOT_PATH = path.resolve(__dirname, '../../');
 
@@ -8,6 +9,11 @@ const SERVER_PORT = 4000;
 
 const MAIN_FILE = 'index.tsx';
 const chalk = require('chalk');
+
+const { config: loadConfig } = dotenv;
+
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const ENV_CONFIG_PATH = path.resolve(ROOT_PATH, 'env', `.${NODE_ENV}.env`);
 
 // 打印时颜色
 const error = chalk.bold.red;
@@ -29,11 +35,23 @@ const log = (message, types) => {
     console.log(maps[types](message));
 };
 
+//webpack 读取env 配置
+const envConfig = loadConfig({
+    path: ENV_CONFIG_PATH
+}).parsed;
+
+if (!envConfig) {
+    console.log('配置文件不存在');
+    // 退出程序
+    process.exit(1);
+}
+
 module.exports = {
     MAIN_FILE,
     log,
     separator,
     SERVER_HOST,
     SERVER_PORT,
-    ROOT_PATH
+    ROOT_PATH,
+    ENV_CONFIG_PATH
 };

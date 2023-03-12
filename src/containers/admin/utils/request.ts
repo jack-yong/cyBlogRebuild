@@ -3,10 +3,7 @@ import axios from 'axios';
 import { message, Modal } from 'antd';
 
 // type FnVoid = () => void;
-// const baseURL = 'http://localhost:5000/';
-const baseURL = 'http://101.132.119.45/:5000';
 
-const TIMEOUT = 10000;
 axios.defaults.withCredentials = false;
 
 const allPendingRequest: any[] = [];
@@ -26,9 +23,9 @@ export const getConfirmation = (callBack?: any) => {
 };
 
 const request = axios.create({
-    timeout: TIMEOUT,
+    timeout: Number(process.env.TIMEOUT),
     data: {},
-    baseURL: baseURL
+    baseURL: `${process.env.BASE_API}`
 });
 
 request.interceptors.request.use(
