@@ -19,7 +19,7 @@ import { BlogsModule } from './modules/blogs/blogs.module';
       type: 'mysql', //数据库类型
       username: 'root', //账号
       password: '141592', //密码
-      host: 'localhost', //host
+      host: '127.0.0.1', //host
       port: 3306, //端口
       database: 'cyblog', //库名
       // charset: 'utf8mb4',
