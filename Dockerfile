@@ -1,23 +1,8 @@
-FROM node:alpine
-
-USER root
-
-# 执行镜像的工作目录
-WORKDIR /var/publish/webapp
-# 安装项目依赖包
-RUN npm install
-
-RUN npm run build
-
-
 FROM nginx:latest
-
-WORKDIR /var/publish/webapp
+USER root
 
 # 将项目根目录下dist文件夹下的所有文件复制到镜像中 /usr/share/nginx/html/ 目录下
 COPY dist/ /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
