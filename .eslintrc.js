@@ -16,7 +16,7 @@ module.exports = {
         'prettier'
     ],
     overrides: [],
-    parser: '@babel/eslint-parser',
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaFeatures: {
             jsx: true,

@@ -11,3 +11,5 @@ export interface Response<T = unknown> {
     msg: string;
     timestamp: number;
 }
+
+export type FnVoid = () => void;

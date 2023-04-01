@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Menu } from 'antd';
-import { matchRoutes, NavLink as Link, RouteObject, useNavigate } from 'react-router-dom';
+import { matchRoutes, RouteObject, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import routes from '@/containers/admin/routes';
 import { configStore } from '@/containers/admin/store';
@@ -14,6 +14,7 @@ const index: React.FC = () => {
     const { isCollapsed, theme } = useSnapshot(configStore);
     const [activeMenus, setActiveMenus] = useState<string[]>([location.pathname]);
     const renderMenu = (routes: RouteObject[]) => {
+        //eslint-disable-next-line
         return routes.map((route): any => {
             return {
                 label: route.handle.title,
@@ -29,6 +30,7 @@ const index: React.FC = () => {
     return (
         <>
             <Menu
+                style={{ fontSize: '1rem' }}
                 theme={theme}
                 mode='inline'
                 defaultOpenKeys={[menuData[0].path as string]}

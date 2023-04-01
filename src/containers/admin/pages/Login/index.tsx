@@ -50,6 +50,7 @@ const index: React.FC = () => {
                                 message: '邮箱内容不可以为空!'
                             }
                         ]}
+                        hasFeedback
                     >
                         <Input
                             prefix={<MailOutlined />}
