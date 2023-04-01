@@ -5,12 +5,11 @@ import { FormLayout } from 'antd/lib/form/Form';
 import { FormLabelAlign } from 'antd/lib/form/interface';
 import { DefaultOptionType } from 'antd/lib/select';
 import moment from 'moment';
-import { CustomTagProps } from 'rc-select/lib/BaseSelect';
 import React, { useEffect } from 'react';
-import { FnVoid } from '../../interfaces/type';
 import { ColorPicker } from '../ColorPicker';
 export interface DFProps {
     configData: configDataType[];
+    // eslint-disable-next-line
     initialData: any;
     formStyle?: FormStyle;
     formItemStyle?: FormStyle;
