@@ -50,7 +50,7 @@ export const ModifyDrawer: React.FC<ModifyDrawer> = props => {
             title={title}
             open={open}
             onClose={() => onClose()}
-            width={'500px'}
+            width={'600px'}
             destroyOnClose={true} //关闭抽屉销毁内部元素
         >
             <DynamicForm
@@ -61,7 +61,7 @@ export const ModifyDrawer: React.FC<ModifyDrawer> = props => {
                 formItemStyle={drawerItemStyle} //formitem样式
                 setDrawerVisible={setDrawerVisible}
                 addOrModifyOrSearchService={ModifyService}
-                formLayout={'inline'}
+                formLayout={'horizontal'}
             />
         </Drawer>
     );

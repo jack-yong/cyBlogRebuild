@@ -1,4 +1,4 @@
-import type { ColumnType } from 'antd/lib/table';
+import type { ColumnsType, ColumnType } from 'antd/lib/table';
 import { configDataType, FormStyle } from '../components/DynamicForm';
 
 export enum FormColumnType {
@@ -29,8 +29,8 @@ export interface multiComposeColumn extends ColumnType<any> {
 }
 
 export enum UserType {
-    User = 'user',
-    Admin = 'admin'
+    User = 'User',
+    Admin = 'Admin'
 }
 
 export const UserInfoObj = {
@@ -43,7 +43,7 @@ export function switchFormType(multiComposeColumns: multiComposeColumn[]) {
     const modifyFormColumn: configDataType[] = [];
     const searchFormColumn: configDataType[] = [];
     //eslint-disable-next-line
-    const tableColumns: ColumnType<any>[] = [];
+    const tableColumns: ColumnsType[] = [];
     multiComposeColumns.map(item => {
         const { formcolumn, dataIndex, title, ...restMultiColumns } = item;
         if (formcolumn) {
@@ -83,10 +83,15 @@ export function switchFormType(multiComposeColumns: multiComposeColumn[]) {
                 default:
                     break;
             }
-        } else {
-            //eslint-disable-next-line
-            tableColumns.push(restMultiColumns as ColumnType<any>);
         }
+
+        //eslint-disable-next-line
+        tableColumns.push({
+            dataIndex,
+            title,
+            align: 'center',
+            ...restMultiColumns
+        } as unknown as ColumnsType);
     });
     return { searchFormColumn, createFormColumn, modifyFormColumn, tableColumns };
 }

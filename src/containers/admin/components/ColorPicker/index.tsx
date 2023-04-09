@@ -9,6 +9,7 @@ export const ColorPicker: React.FC<{ value?: string }> = props => {
         setDisplayCP(false);
     }
 
+    // eslint-disable-next-line
     function colorOnChange(color: any) {
         setColor(color.hex);
     }

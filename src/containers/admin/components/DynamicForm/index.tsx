@@ -19,6 +19,8 @@ export interface DFProps {
     // eslint-disable-next-line
     setDrawerVisible?: Function;
     formLayout: FormLayout;
+    // eslint-disable-next-line
+    defalutform?: any;
 }
 
 export interface configDataType {
@@ -51,11 +53,13 @@ export enum elementType {
     'select',
     'multipleSelect',
     'datePicker',
+    'rangePicker',
     'textarea',
     'colorInput'
 }
 
 export const DynamicForm: React.FC<DFProps> = ({
+    defalutform,
     configData,
     initialData,
     formStyle,
@@ -65,7 +69,7 @@ export const DynamicForm: React.FC<DFProps> = ({
     setDrawerVisible,
     formLayout
 }) => {
-    const [form] = Form.useForm();
+    const form = defalutform || Form.useForm()[0];
 
     useEffect(() => {
         if (form) {
@@ -75,9 +79,15 @@ export const DynamicForm: React.FC<DFProps> = ({
 
     const throttledSubmit = useThrottleFn(
         async () => {
-            let fields = null;
+            //eslint-disable-next-line
+            let fields: any = null;
             try {
                 fields = await form.validateFields();
+                Object.keys(fields).forEach(key => {
+                    if (fields[key] === undefined || fields[key] === '') {
+                        delete fields[key];
+                    }
+                });
             } catch (err) {
                 return;
             }
@@ -164,7 +174,7 @@ export const DynamicForm: React.FC<DFProps> = ({
                                 // filterSort={(optionA, optionB) =>
                                 //     optionA.children?.toLowerCase().localeCompare(optionB.children?.toLowerCase())
                                 // }
-                                style={{ minWidth: '100px' }}
+                                style={{ minWidth: '15rem' }}
                             >
                                 {list?.map((item, idx) => (
                                     <Select.Option key={idx} value={item.value}>
@@ -199,9 +209,9 @@ export const DynamicForm: React.FC<DFProps> = ({
                     );
                     formItemList.push(multipleSelectItem);
                     break;
-                case elementType.datePicker:
+                case elementType.rangePicker:
                     // eslint-disable-next-line no-case-declarations
-                    const datePickerItem = (
+                    const rangePicker = (
                         <Form.Item
                             {...formItemStyle}
                             key={name}
@@ -220,7 +230,7 @@ export const DynamicForm: React.FC<DFProps> = ({
                             />
                         </Form.Item>
                     );
-                    formItemList.push(datePickerItem);
+                    formItemList.push(rangePicker);
                     break;
                 case elementType.textarea:
                     // eslint-disable-next-line no-case-declarations
@@ -252,6 +262,21 @@ export const DynamicForm: React.FC<DFProps> = ({
                     );
                     formItemList.push(colorInput);
                     break;
+                case elementType.datePicker:
+                    // eslint-disable-next-line no-case-declarations
+                    const datePickerItem = (
+                        <Form.Item
+                            {...formItemStyle}
+                            key={name}
+                            name={name}
+                            label={label}
+                            rules={rules}
+                        >
+                            <DatePicker showNow showTime />
+                        </Form.Item>
+                    );
+                    formItemList.push(datePickerItem);
+                    break;
                 default:
                     break;
             }
@@ -259,19 +284,17 @@ export const DynamicForm: React.FC<DFProps> = ({
 
         const submitButton = (
             <Form.Item wrapperCol={{ offset: 10, span: 16 }} key={'addbutton'}>
-                {' '}
                 <Button
                     style={{ marginRight: '72px' }}
                     type='primary'
                     onClick={throttledSubmit.run}
                 >
                     {buttonName}
-                </Button>{' '}
+                </Button>
             </Form.Item>
         );
         const resetButton = (
             <Form.Item key={'delbutton'}>
-                {' '}
                 <Button
                     type='primary'
                     ghost

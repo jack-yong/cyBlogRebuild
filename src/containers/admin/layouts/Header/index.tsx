@@ -9,6 +9,7 @@ import avatarDefault from '@/containers/admin/assets/images/avatar.jpg';
 import { useSnapshot } from 'valtio';
 import { userInfoStore } from '../../store/account';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../utils/auth';
 
 const { Header } = Layout;
 
@@ -25,8 +26,8 @@ const index: React.FC = () => {
                     label: (
                         <>
                             <span
-                                onClick={e => {
-                                    localStorage.clear();
+                                onClick={() => {
+                                    logout();
                                     navigate('/login');
                                 }}
                             >

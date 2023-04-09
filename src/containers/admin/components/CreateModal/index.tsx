@@ -1,7 +1,6 @@
 import { Modal } from 'antd';
 import React from 'react';
 import { configDataType, DynamicForm, FormStyle } from '../DynamicForm';
-
 export interface CreateModalProps {
     visible: boolean;
     title: string;
@@ -9,7 +8,7 @@ export interface CreateModalProps {
     modalStyle?: FormStyle;
     modalItemStyle?: FormStyle;
     // eslint-disable-next-line
-    addService?: Function;
+    addService: Function;
     // eslint-disable-next-line
     onCancelModal: Function;
 }
@@ -22,7 +21,7 @@ const CreateModal: React.FC<CreateModalProps> = props => {
                 configData={modalConfData}
                 formStyle={modalStyle} //form样式
                 formItemStyle={modalItemStyle} //formitem样式
-                addOrModifyOrSearchService={() => addService}
+                addOrModifyOrSearchService={addService}
                 buttonName='添加'
                 initialData={undefined}
                 setDrawerVisible={undefined}
