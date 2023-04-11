@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { SketchPicker } from 'react-color';
 import s from './index.mod.scss';
 
-export const ColorPicker: React.FC<{ value?: string }> = props => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const ColorPicker: React.FC<{ value?: string; onChange?: Function }> = ({
+    value,
+    onChange
+}) => {
     const [displayCP, setDisplayCP] = useState(false);
-    const [color, setColor] = useState(props.value ?? '#000');
+    const [color, setColor] = useState(value ?? '#000');
     function colorPickerClose() {
         setDisplayCP(false);
     }
@@ -12,6 +16,9 @@ export const ColorPicker: React.FC<{ value?: string }> = props => {
     // eslint-disable-next-line
     function colorOnChange(color: any) {
         setColor(color.hex);
+        setTimeout(() => {
+            onChange?.(color.hex);
+        });
     }
 
     function colorClick() {

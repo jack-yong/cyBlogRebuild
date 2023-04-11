@@ -1,5 +1,7 @@
 import type { ColumnsType, ColumnType } from 'antd/lib/table';
 import { configDataType, FormStyle } from '../components/DynamicForm';
+import { isAdmin } from './auth';
+import { message } from 'antd';
 
 export enum FormColumnType {
     searchType = 0,
@@ -94,4 +96,12 @@ export function switchFormType(multiComposeColumns: multiComposeColumn[]) {
         } as unknown as ColumnsType);
     });
     return { searchFormColumn, createFormColumn, modifyFormColumn, tableColumns };
+}
+
+export function authVerify() {
+    const adminStatus = isAdmin();
+    if (!adminStatus) {
+        message.info('游客无法修改🤣');
+        return Promise.reject(new Error('游客无法修改🤣!'));
+    }
 }
