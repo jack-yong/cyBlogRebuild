@@ -5,14 +5,13 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   Query,
 } from '@nestjs/common';
 import { TagsService } from './tags.service';
 import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
-import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { FindAllTagDto } from './dto/findAll-tag.dto';
 
 @ApiBearerAuth()
 @ApiTags('tags')
@@ -26,8 +25,8 @@ export class TagsController {
     return this.tagsService.create(createTagDto);
   }
 
-  @Get('findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  @Get('/findAll')
+  findAll(@Query() query: FindAllTagDto) {
     return this.tagsService.findAll(query);
   }
 

@@ -6,18 +6,10 @@ import {
   IsOptional,
 } from 'class-validator';
 import { UserRole } from 'src/common/interface/common.interface';
-export class FindAllUserDto {
+export class FindAllCategoryDto {
   @IsString()
   @IsOptional()
-  readonly nickname: string;
-
-  @IsEmail()
-  @IsOptional()
-  readonly email: string;
-
-  @IsEnum(UserRole)
-  @IsOptional()
-  readonly role: UserRole;
+  readonly categoryName: string;
 
   @IsNumber()
   readonly page: number;

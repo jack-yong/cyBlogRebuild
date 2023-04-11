@@ -8,7 +8,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('login')
+  @Post('/login')
   @ApiOperation({
     summary: '用户登录',
   })

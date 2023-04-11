@@ -11,6 +11,10 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsEnum(IsDelete)
   readonly isDelete: IsDelete;
 
+  //用户是否被删除
+  @IsOptional()
+  readonly userphone: string;
+
   @IsOptional()
   @IsDate()
   readonly recentlyLanched: Date;

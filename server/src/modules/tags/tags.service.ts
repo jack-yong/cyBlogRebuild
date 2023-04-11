@@ -37,11 +37,18 @@ export class TagsService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: { tagName: string; page: number; pageSize: number }) {
     try {
+      const tagCount = await this.tagRepository.count({
+        where: {
+          ...(query.tagName && { tagName: Like(`%${query.tagName}%`) }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
       const tags = await this.tagRepository.find({
         where: {
-          tagName: Like(`%${query.keyWord}%`),
+          ...(query.tagName && { tagName: Like(`%${query.tagName}%`) }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           tagId: 'DESC',
@@ -49,10 +56,16 @@ export class TagsService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
+
       this.response = {
         code: RCode.OK,
         msg: '获取标签集合成功',
-        data: tags,
+        data: {
+          data: tags,
+          total: tagCount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
       };
       return this.response;
     } catch (error) {

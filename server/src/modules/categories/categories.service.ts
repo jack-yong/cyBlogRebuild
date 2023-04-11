@@ -39,11 +39,26 @@ export class CategoriesService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    categoryName: string;
+    page: number;
+    pageSize: number;
+  }) {
     try {
-      const users = await this.categoryRepository.find({
+      const categoryCount = await this.categoryRepository.count({
         where: {
-          categoryName: Like(`%${query.keyWord}%`),
+          ...(query.categoryName && {
+            categoryName: Like(`%${query.categoryName}%`),
+          }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
+      const categories = await this.categoryRepository.find({
+        where: {
+          ...(query.categoryName && {
+            categoryName: Like(`%${query.categoryName}%`),
+          }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           categoryId: 'DESC',
@@ -51,7 +66,16 @@ export class CategoriesService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取类别成功', data: users };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取类别成功',
+        data: {
+          data: categories,
+          total: categoryCount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {

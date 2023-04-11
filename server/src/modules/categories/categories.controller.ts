@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { FindAllUserDto } from '../users/dto/findAll-user.dto';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { FindAllCategoryDto } from './dto/findAll-category.dto';
 
 @ApiTags('categories')
 @ApiBearerAuth()
@@ -29,7 +29,7 @@ export class CategoriesController {
   }
 
   @Get('/findAll')
-  findAll(@Query() query: FindAllUserDto) {
+  findAll(@Query() query: FindAllCategoryDto) {
     return this.categoriesService.findAll(query);
   }
 

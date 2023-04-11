@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { RCode } from '../../common/constant/rcode';
 import { Response } from 'src/common/interface/response.interface';
+import { IsDelete, UserRole } from 'src/common/interface/common.interface';
 @Injectable()
 export class UsersService {
   private response: Response;
@@ -15,11 +16,29 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async findAll(query: { keyWord?: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    nickname?: string;
+    email?: string;
+    role?: UserRole;
+    page: number;
+    pageSize: number;
+  }) {
+    // console.log(query, 'queryqueryquery')
     try {
+      const userCount = await this.usersRepository.count({
+        where: {
+          ...(query.nickname && { nickname: Like(`%${query.nickname}%`) }),
+          ...(query.email && { email: query.email }),
+          ...(query.role && { role: query.role }),
+          ...{ isDelete: IsDelete.Alive },
+        },
+      });
       const users = await this.usersRepository.find({
         where: {
-          nickname: Like(`%${query.keyWord}%`),
+          ...(query.nickname && { nickname: Like(`%${query.nickname}%`) }),
+          ...(query.email && { email: query.email }),
+          ...(query.role && { role: query.role }),
+          ...{ isDelete: IsDelete.Alive },
         },
         order: {
           userId: 'DESC',
@@ -27,7 +46,23 @@ export class UsersService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取用户成功', data: users };
+
+      // const users = await this.usersRepository.createQueryBuilder('user')
+      //   .where("user.role = :role", { role: query.role })
+      //   .orWhere("user.nickname = :nickName", { nickName: query.nickName })
+      //   .orWhere("user.email = :email", { email: query.email })
+      //   .getMany();;
+
+      this.response = {
+        code: RCode.OK,
+        msg: '获取用户成功',
+        data: {
+          data: users,
+          page: query.page,
+          pageSize: query.pageSize,
+          total: userCount,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {
