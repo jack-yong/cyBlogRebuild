@@ -6,7 +6,7 @@ import { UpdateLinkDto } from './dto/update-link.dto';
 import { Link } from './entities/link.entity';
 import { Response } from 'src/common/interface/response.interface';
 import { RCode } from 'src/common/constant/rcode';
-import { IsDelete } from 'src/common/interface/common.interface';
+import { IsDelete, linkType } from 'src/common/interface/common.interface';
 
 @Injectable()
 export class LinksService {
@@ -42,11 +42,32 @@ export class LinksService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    linkName: string;
+    linkDescription: string;
+    linkType: linkType;
+    page: number;
+    pageSize: number;
+  }) {
     try {
+      const linkCount = await this.linkRepository.count({
+        where: {
+          ...(query.linkName && { linkName: Like(`%${query.linkName}%`) }),
+          ...(query.linkDescription && {
+            linkDescription: Like(`%${query.linkDescription}%`),
+          }),
+          ...(query.linkType && { linkType: query.linkType }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
       const links = await this.linkRepository.find({
         where: {
-          linkName: Like(`%${query.keyWord}%`),
+          ...(query.linkName && { linkName: Like(`%${query.linkName}%`) }),
+          ...(query.linkDescription && {
+            linkDescription: Like(`%${query.linkDescription}%`),
+          }),
+          ...(query.linkType && { linkType: query.linkType }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           linkId: 'DESC',
@@ -54,7 +75,16 @@ export class LinksService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取友链成功', data: links };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取友链成功',
+        data: {
+          data: links,
+          total: linkCount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {

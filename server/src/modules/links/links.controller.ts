@@ -3,16 +3,16 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
-import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { FindAllLinkDto } from './dto/findAll-link.dto';
 
 @ApiBearerAuth()
 @ApiTags('links')
@@ -21,13 +21,14 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
+  // @UseGuards(AuthGuard('jwt'))
   @Post('/create')
   create(@Body() createLinkDto: CreateLinkDto) {
     return this.linksService.create(createLinkDto);
   }
 
   @Get('/findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  findAll(@Query() query: FindAllLinkDto) {
     return this.linksService.findAll(query);
   }
 
