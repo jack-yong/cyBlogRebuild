@@ -9,13 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { DevlogsService } from './devlogs.service';
 import { CreateDevlogDto } from './dto/create-devlog.dto';
 import { UpdateDevlogDto } from './dto/update-devlog.dto';
+import { FindAllDevlogDto } from './dto/findAll-devlog.dto';
 @ApiBearerAuth()
 @ApiTags('devlogs')
-@Controller('devlogs')
+@Controller('/devlogs')
 // @UseGuards(AuthGuard('jwt'))
 export class DevlogsController {
   constructor(private readonly devlogsService: DevlogsService) {}
@@ -26,7 +26,7 @@ export class DevlogsController {
   }
 
   @Get('/findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  findAll(@Query() query: FindAllDevlogDto) {
     return this.devlogsService.findAll(query);
   }
 

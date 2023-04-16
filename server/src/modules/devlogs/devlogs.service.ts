@@ -6,7 +6,7 @@ import { CreateDevlogDto } from './dto/create-devlog.dto';
 import { UpdateDevlogDto } from './dto/update-devlog.dto';
 import { Devlog } from './entities/devlog.entity';
 import { Response } from 'src/common/interface/response.interface';
-import { IsDelete } from 'src/common/interface/common.interface';
+import { IsDelete, devLogType } from 'src/common/interface/common.interface';
 
 @Injectable()
 export class DevlogsService {
@@ -39,11 +39,25 @@ export class DevlogsService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    dlTitle: string;
+    dlType: devLogType;
+    page: number;
+    pageSize: number;
+  }) {
     try {
+      const devlogCount = await this.devlogRepository.count({
+        where: {
+          ...(query.dlTitle && { dlTitle: Like(`%${query.dlTitle}%`) }),
+          ...(query.dlType && { dlType: query.dlType }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
       const devlogs = await this.devlogRepository.find({
         where: {
-          dlTitle: Like(`%${query.keyWord}%`),
+          ...(query.dlTitle && { dlTitle: Like(`%${query.dlTitle}%`) }),
+          ...(query.dlType && { dlType: query.dlType }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           devlogId: 'DESC',
@@ -51,7 +65,16 @@ export class DevlogsService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取日志成功', data: devlogs };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取日志成功',
+        data: {
+          data: devlogs,
+          total: devlogCount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {
