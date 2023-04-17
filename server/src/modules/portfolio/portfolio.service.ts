@@ -44,11 +44,29 @@ export class PortfolioService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    portfolioTitle: string;
+    portfolioDescribe: string;
+    page: number;
+    pageSize: number;
+  }) {
     try {
+      const portfolioCount = await this.portfolioRepository.count({
+        where: {
+          ...(query.portfolioTitle && { portfolioTitle: query.portfolioTitle }),
+          ...(query.portfolioDescribe && {
+            portfolioDescribe: query.portfolioDescribe,
+          }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
       const portfolios = await this.portfolioRepository.find({
         where: {
-          portfolioTitle: Like(`%${query.keyWord}%`),
+          ...(query.portfolioTitle && { portfolioTitle: query.portfolioTitle }),
+          ...(query.portfolioDescribe && {
+            portfolioDescribe: query.portfolioDescribe,
+          }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           portfolioId: 'DESC',
@@ -59,7 +77,12 @@ export class PortfolioService {
       this.response = {
         code: RCode.OK,
         msg: '获取作品集成功',
-        data: portfolios,
+        data: {
+          data: portfolios,
+          total: portfolioCount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
       };
       return this.response;
     } catch (error) {

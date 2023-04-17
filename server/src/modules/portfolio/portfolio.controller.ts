@@ -13,10 +13,11 @@ import { CreatePortfolioDto } from './dto/create-portfolio.dto';
 import { UpdatePortfolioDto } from './dto/update-portfolio.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
+import { FindAllPortfolioDto } from './dto/findAll-portfolio.dto';
 
 @ApiBearerAuth()
 @ApiTags('portfolio')
-@Controller('portfolio')
+@Controller('/portfolio')
 // @UseGuards(AuthGuard('jwt'))
 export class PortfolioController {
   constructor(private readonly portfolioService: PortfolioService) {}
@@ -27,7 +28,7 @@ export class PortfolioController {
   }
 
   @Get('/findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  findAll(@Query() query: FindAllPortfolioDto) {
     return this.portfolioService.findAll(query);
   }
 
