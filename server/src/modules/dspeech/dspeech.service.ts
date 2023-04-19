@@ -37,11 +37,26 @@ export class DspeechService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    dspeechContent: string;
+    page: number;
+    pageSize: number;
+  }) {
     try {
+      const dspeechcount = await this.dspeechRepository.find({
+        where: {
+          ...(query.dspeechContent && {
+            dspeechContent: Like(`%${query.dspeechContent}%`),
+          }),
+          ...{ isDeleted: IsDelete.Alive },
+        },
+      });
       const dspeech = await this.dspeechRepository.find({
         where: {
-          dspeechContent: Like(`%${query.keyWord}%`),
+          ...(query.dspeechContent && {
+            dspeechContent: Like(`%${query.dspeechContent}%`),
+          }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           dspeechId: 'DESC',
@@ -49,7 +64,16 @@ export class DspeechService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取说说成功', data: dspeech };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取说说成功',
+        data: {
+          data: dspeech,
+          total: dspeechcount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {
