@@ -18,12 +18,17 @@ export class LmrService {
   ) {}
   async create(createLmrDto: CreateLmrDto) {
     try {
-      const { lmrAnswererId, lmrFatherid, lmrContent } = createLmrDto;
+      const {
+        lmrAnswererId,
+        lmrFatherid,
+        lmrContent,
+        isRead = IsRead.unread,
+      } = createLmrDto;
       const lmr = new Lmr();
       lmr.lmrAnswererId = lmrAnswererId;
       lmr.lmrFatherid = lmrFatherid;
       lmr.lmrContent = lmrContent;
-      lmr.isRead = IsRead.unread;
+      lmr.isRead = isRead;
       lmr.isDeleted = IsDelete.Alive;
       lmr.lmrDate = new Date();
       await this.lmrRepository.save(lmr);
@@ -39,11 +44,27 @@ export class LmrService {
     }
   }
 
-  async findAll(query: { keyWord: string; page: number; pageSize: number }) {
+  async findAll(query: {
+    lmrContent: string;
+    isRead: IsRead;
+    page: number;
+    pageSize: number;
+  }) {
     try {
+      const lmrscount = await this.lmrRepository.find({
+        where: {
+          ...(query.lmrContent && {
+            lmrContent: Like(`%${query.lmrContent}%`),
+          }),
+          ...(query.isRead && { isRead: query.isRead }),
+        },
+      });
       const lmrs = await this.lmrRepository.find({
         where: {
-          lmrContent: Like(`%${query.keyWord}%`),
+          ...(query.lmrContent && {
+            lmrContent: Like(`%${query.lmrContent}%`),
+          }),
+          ...(query.isRead && { isRead: query.isRead }),
         },
         order: {
           lmrId: 'DESC',
@@ -51,7 +72,16 @@ export class LmrService {
         skip: (query.page - 1) * query.pageSize,
         take: query.pageSize,
       });
-      this.response = { code: RCode.OK, msg: '获取留言成功', data: lmrs };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取留言成功',
+        data: {
+          data: lmrs,
+          total: lmrscount,
+          page: query.page,
+          pageSize: query.pageSize,
+        },
+      };
       return this.response;
     } catch (error) {
       this.response = {

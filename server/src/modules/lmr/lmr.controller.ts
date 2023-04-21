@@ -13,10 +13,11 @@ import { CreateLmrDto } from './dto/create-lmr.dto';
 import { UpdateLmrDto } from './dto/update-lmr.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
+import { FindAllMessageDto } from './dto/findAll-link.dto';
 
 @ApiBearerAuth()
-@ApiTags('lmr')
-@Controller('lmr')
+@ApiTags('/lmr')
+@Controller('/lmr')
 // @UseGuards(AuthGuard('jwt'))
 export class LmrController {
   constructor(private readonly lmrService: LmrService) {}
@@ -27,7 +28,7 @@ export class LmrController {
   }
 
   @Get('/findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  findAll(@Query() query: FindAllMessageDto) {
     return this.lmrService.findAll(query);
   }
 
