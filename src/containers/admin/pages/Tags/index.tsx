@@ -189,7 +189,7 @@ const index: React.FC = () => {
 
             <BaseTable
                 columns={tableColumns as ColumnType<any>[]}
-                rowKey={'categoryId'}
+                rowKey={'tagId'}
                 loading={useTagList.loading}
                 total={useTagList.data?.data.total as number}
                 setPage={setPage}
