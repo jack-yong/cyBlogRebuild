@@ -2,6 +2,8 @@ import type { ColumnsType, ColumnType } from 'antd/lib/table';
 import { configDataType, FormStyle } from '../components/DynamicForm';
 import { isAdmin } from './auth';
 import { message } from 'antd';
+import routes from '../routes';
+import { RouteObject } from 'react-router-dom';
 
 export enum FormColumnType {
     searchType = 0,
@@ -105,3 +107,15 @@ export function authVerify() {
         return Promise.reject(new Error('游客无法修改🤣!'));
     }
 }
+
+// export function filterRouter() {
+//     const adminStatus = isAdmin();
+//     if (!adminStatus) {
+//         routes[0].children = routes[0].children?.filter((item) => item.path !== '/users') as RouteObject[]
+//         console.log(routes)
+//         return routes;
+//     }
+//     else {
+//         return routes;
+//     }
+// }

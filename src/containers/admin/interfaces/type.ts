@@ -22,4 +22,9 @@ export interface Response<T = unknown> {
     timestamp: number;
 }
 
+export enum IsDelete {
+    Death = 0,
+    Alive = 1
+}
+
 export type FnVoid = () => void;

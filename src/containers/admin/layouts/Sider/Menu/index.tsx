@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import routes from '@/containers/admin/routes';
 import { configStore } from '@/containers/admin/store';
 import { useSnapshot } from 'valtio';
+import { isAdmin } from '@/containers/admin/utils/auth';
 
 const index: React.FC = () => {
     const location = useLocation();
@@ -13,9 +14,11 @@ const index: React.FC = () => {
     const menuData = (matches[0].route.children ?? []).filter(i => i?.handle?.title);
     const { isCollapsed, theme } = useSnapshot(configStore);
     const [activeMenus, setActiveMenus] = useState<string[]>([location.pathname]);
+    const adminStatus = isAdmin();
     const renderMenu = (routes: RouteObject[]) => {
         //eslint-disable-next-line
         return routes.map((route): any => {
+            if (!adminStatus && route.path === '/users') return;
             return {
                 label: route.handle.title,
                 icon: route.handle.icon,
