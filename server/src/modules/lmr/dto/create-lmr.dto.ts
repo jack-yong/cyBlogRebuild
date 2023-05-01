@@ -5,7 +5,7 @@ export class CreateLmrDto {
   @IsUUID()
   readonly lmrAnswererId: string;
 
-  @IsUUID()
+  @IsString()
   @IsOptional()
   readonly lmrFatherid: string;
 

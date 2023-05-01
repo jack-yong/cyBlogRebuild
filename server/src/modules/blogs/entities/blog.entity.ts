@@ -42,7 +42,7 @@ export class Blog {
   @Column({ name: 'blog_category_id', type: 'varchar' })
   @ApiProperty({
     example: '4a72dabb-7435-6a95-8d4e-fd8b888c56d5',
-    description: '标签',
+    description: '博客所属板块',
   })
   blogCategoryId: string;
 

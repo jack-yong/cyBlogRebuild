@@ -7,8 +7,4 @@ export class UpdateLmrDto extends PartialType(CreateLmrDto) {
   @IsOptional()
   @IsEnum(IsDelete)
   readonly isDeleted: IsDelete;
-
-  @IsOptional()
-  @IsEnum(IsRead)
-  readonly isRead: IsRead;
 }

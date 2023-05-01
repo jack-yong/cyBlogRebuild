@@ -1,30 +1,39 @@
-import { IsEnum, IsOptional, IsString, IsUrl, IsUUID } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import {
   BlogStatus,
   EnableComment,
 } from 'src/common/interface/common.interface';
 
-export class CreateBlogDto {
+export class findAllBlogDto {
   @IsString()
+  @IsOptional()
   readonly blogTitle: string;
 
-  @IsUrl()
-  @IsOptional()
-  readonly blogCoverImage: string;
-
-  @IsString()
-  readonly blogContent: string;
-
   @IsUUID()
+  @IsOptional()
   readonly blogCategoryId: string;
 
   @IsEnum(BlogStatus)
+  @IsOptional()
   readonly blogStatus: BlogStatus;
 
   @IsEnum(EnableComment)
+  @IsOptional()
   readonly blogEnableComment: EnableComment;
 
   @IsString()
   @IsOptional()
   readonly blogTags: string;
+
+  @IsNumber()
+  readonly page: number;
+
+  @IsNumber()
+  readonly pageSize: number;
 }

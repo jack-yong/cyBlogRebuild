@@ -13,6 +13,7 @@ import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
+import { findAllBlogDto } from './dto/findAll-blog.dto';
 
 @Controller('blogs')
 @ApiBearerAuth()
@@ -27,7 +28,8 @@ export class BlogsController {
   }
 
   @Get('/findAll')
-  findAll(@Query() query: QueryAllCommonDto) {
+  findAll(@Query() query: findAllBlogDto) {
+    // return this.blogsService.findAllBlogSnap();
     return this.blogsService.findAll(query);
   }
 

@@ -1,11 +1,11 @@
-import { IsString, IsNumber, IsOptional } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsEnum } from 'class-validator';
 import { IsRead } from 'src/common/interface/common.interface';
 export class FindAllMessageDto {
   @IsString()
   @IsOptional()
   readonly lmrContent: string;
 
-  @IsString()
+  @IsEnum(IsRead)
   @IsOptional()
   readonly isRead: IsRead;
 

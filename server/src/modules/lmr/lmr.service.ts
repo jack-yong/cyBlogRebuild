@@ -51,7 +51,7 @@ export class LmrService {
     pageSize: number;
   }) {
     try {
-      const lmrscount = await this.lmrRepository.find({
+      const lmrscount = await this.lmrRepository.count({
         where: {
           ...(query.lmrContent && {
             lmrContent: Like(`%${query.lmrContent}%`),
