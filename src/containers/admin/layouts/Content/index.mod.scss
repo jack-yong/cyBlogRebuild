@@ -7,6 +7,7 @@
     min-height: calc(100vh-#{$footerHeight+$space * 2+$headerHeight});
     border-radius: $midRadius;
     color: $textColor;
+    overflow: inherit;
 }
 
 .breadcrumb {

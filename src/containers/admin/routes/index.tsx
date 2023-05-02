@@ -17,6 +17,7 @@ import React from 'react';
 import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 import Login from '@/containers/admin/pages/Login';
+import Opreate from '../pages/Articles/opreate';
 
 const BaseLayout = lazy(() => import('@/containers/admin/layouts'));
 const Articles = lazy(() => import('@/containers/admin/pages/Articles'));
@@ -53,20 +54,28 @@ const routes: RouteObject[] = [
                 path: '/articles',
                 handle: {
                     title: '文章',
-                    icon: <FileProtectOutlined />
+                    icon: <FileSyncOutlined />
                 },
                 children: [
                     {
-                        path: '/articles/manager',
+                        path: '/articles',
                         element: <Articles />,
                         handle: {
-                            title: '管理',
-                            icon: <FileSyncOutlined />
+                            icon: <FileProtectOutlined />,
+                            title: '管理'
+                        }
+                    },
+                    {
+                        path: '/articles/modify/:id',
+                        element: <Opreate />,
+                        handle: {
+                            title: '修改',
+                            disable: true
                         }
                     },
                     {
                         path: '/articles/add',
-                        element: <Articles />,
+                        element: <Opreate />,
                         handle: {
                             title: '新增',
                             icon: <FileAddOutlined />

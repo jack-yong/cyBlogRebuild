@@ -19,6 +19,7 @@ const index: React.FC = () => {
         //eslint-disable-next-line
         return routes.map((route): any => {
             if (!adminStatus && route.path === '/users') return;
+            else if (route.handle.disable) return;
             return {
                 label: route.handle.title,
                 icon: route.handle.icon,
