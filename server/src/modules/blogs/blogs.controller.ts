@@ -9,15 +9,14 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { findAllBlogDto } from './dto/findAll-blog.dto';
 
-@Controller('blogs')
+@Controller('/blogs')
 @ApiBearerAuth()
-@ApiTags('blogs')
+@ApiTags('/blogs')
 // @UseGuards(AuthGuard('jwt'))
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}

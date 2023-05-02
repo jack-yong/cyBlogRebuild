@@ -78,6 +78,7 @@ export class BlogsService {
   async findAll(query: {
     blogTitle: string;
     blogCategoryId: string;
+    blogEnableComment: EnableComment;
     blogStatus: BlogStatus;
     page: number;
     pageSize: number;
@@ -106,6 +107,9 @@ export class BlogsService {
         .where({
           ...(query.blogTitle && { blogTitle: Like(`%${query.blogTitle}%`) }),
           ...(query.blogCategoryId && { blogCategoryId: query.blogCategoryId }),
+          ...(query.blogEnableComment && {
+            blogEnableComment: query.blogEnableComment,
+          }),
           ...(query.blogStatus && { blogStatus: query.blogStatus }),
           ...{ isDeleted: IsDelete.Alive },
         })
