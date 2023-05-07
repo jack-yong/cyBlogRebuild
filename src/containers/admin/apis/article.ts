@@ -28,3 +28,7 @@ export const modifyBlog = async (
         (await request({ url: `/blogs/update/${tagId}`, method: 'POST', data })).data
     );
 };
+
+export const fetchOneBlog = async (blogId: string): Promise<Response<blogBase>> => {
+    return authVerify() || (await request({ url: `/blogs/findOne/${blogId}`, method: 'GET' })).data;
+};

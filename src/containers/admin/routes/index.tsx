@@ -58,7 +58,7 @@ const routes: RouteObject[] = [
                 },
                 children: [
                     {
-                        path: '/articles',
+                        path: '/articles/manage',
                         element: <Articles />,
                         handle: {
                             icon: <FileProtectOutlined />,

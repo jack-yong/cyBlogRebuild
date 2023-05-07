@@ -28,3 +28,9 @@ export enum IsDelete {
 }
 
 export type FnVoid = () => void;
+
+export interface listType {
+    label: string;
+    value: string;
+    color?: string;
+}

@@ -77,6 +77,8 @@ export const DynamicForm: React.FC<DFProps> = ({
         }
     }, [initialData, form]);
 
+    // let tagOptions: DefaultOptionType[] | undefined;
+
     const throttledSubmit = useThrottleFn(
         async () => {
             //eslint-disable-next-line
@@ -111,7 +113,8 @@ export const DynamicForm: React.FC<DFProps> = ({
     const tagRender = (props: any) => {
         // eslint-disable-next-line react/prop-types
         const { value, label, closable, onClose } = props;
-        // console.log(props, "propspropsprops");
+        // const tagItem = tagOptions?.find(item => item.value === value);
+
         const onPreventMouseDown = (event: {
             preventDefault: () => void;
             stopPropagation: () => void;
@@ -195,6 +198,7 @@ export const DynamicForm: React.FC<DFProps> = ({
                             name={name}
                             label={label}
                             rules={rules}
+                            style={{ minWidth: '25rem' }}
                         >
                             <Select
                                 mode='multiple'
@@ -207,6 +211,7 @@ export const DynamicForm: React.FC<DFProps> = ({
                             ></Select>
                         </Form.Item>
                     );
+                    // tagOptions = list;
                     formItemList.push(multipleSelectItem);
                     break;
                 case elementType.rangePicker:

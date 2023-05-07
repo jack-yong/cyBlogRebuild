@@ -46,7 +46,7 @@ const index: React.FC = () => {
 
     const blogMultiComposeColumn: multiComposeColumn[] = [
         {
-            title: '文章封面图片',
+            title: '文章封面',
             width: 100,
             dataIndex: 'blogCoverImage',
             render: text => {
@@ -253,7 +253,7 @@ const index: React.FC = () => {
         useBlogModify.run({ isDeleted: 0 }, blogId);
         setTimeout(() => {
             useBlogList.run({ ...pageInfo, ...searchParams });
-        });
+        }, 100);
     };
 
     useEffect(() => {

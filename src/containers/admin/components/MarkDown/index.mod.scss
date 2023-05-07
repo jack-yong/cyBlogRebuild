@@ -1,0 +1,19 @@
+.makedarea {
+    display: flex;
+    flex-direction: row;
+    height: calc(70vh - 20px);
+}
+
+.edit {
+    flex: 1;
+    background-color: #e6f7ff;
+}
+
+.showarea {
+    border: 1px solid black;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin-left: 1em;
+    flex: 1;
+    overflow: auto;
+}

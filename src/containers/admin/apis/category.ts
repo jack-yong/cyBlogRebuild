@@ -5,7 +5,7 @@ import {
     featchCategoryCondition,
     queryAllCategoryResponse
 } from '../interfaces/category';
-import { Response } from '@/containers/admin/interfaces/type';
+import { Response, listType } from '@/containers/admin/interfaces/type';
 import request from '../utils/request';
 import { authVerify } from '../utils';
 
@@ -29,4 +29,14 @@ export const modifyCategory = async (
         authVerify() ||
         (await request({ url: `/categories/update/${categoryId}`, method: 'POST', data })).data
     );
+};
+
+export const fetchCategoryList = async (): Promise<listType[]> => {
+    const res = (await request({ url: '/categories/findAllCategory', method: 'GET' })).data?.data;
+    return res.map((item: categoryBase) => {
+        return {
+            label: item.categoryName,
+            value: item.categoryId
+        };
+    });
 };

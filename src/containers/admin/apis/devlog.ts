@@ -3,7 +3,6 @@ import {
     devlogBase,
     devlogCreateParams,
     devlogModifyParams,
-    devlogbaseParams,
     featchDevlogCondition,
     queryAllDevlogResponse
 } from '../interfaces/devlog';
