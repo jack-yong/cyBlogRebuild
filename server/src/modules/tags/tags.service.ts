@@ -78,6 +78,26 @@ export class TagsService {
     }
   }
 
+  async findAllTag() {
+    try {
+      const tags = await this.tagRepository.find();
+      if (!tags) throw new NotFoundException(`当前没有标签存在`);
+      this.response = {
+        code: RCode.OK,
+        msg: '获取标签集合成功',
+        data: tags,
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取标签集合失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async findOne(id: string) {
     try {
       const tag = await this.tagRepository.findOneBy({

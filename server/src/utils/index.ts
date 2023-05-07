@@ -11,3 +11,20 @@ export const filterBlogInfo = (blogsArr: any) => {
   });
   return filterArr;
 };
+
+export const buildBlogDetail = (blogDetail: any) => {
+  // console.log(blogDetail)
+  const { TagInfo, ...rest } = blogDetail;
+  const tags = TagInfo.map((element: any) => {
+    const curTags = element.tag[0];
+    return {
+      tagId: curTags.tagId,
+      label: curTags.tagName,
+      value: curTags.tagColor,
+    };
+  });
+  return {
+    ...rest,
+    blogTags: tags,
+  };
+};

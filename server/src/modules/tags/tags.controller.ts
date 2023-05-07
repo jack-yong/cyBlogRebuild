@@ -30,6 +30,11 @@ export class TagsController {
     return this.tagsService.findAll(query);
   }
 
+  @Get('/findAllTag')
+  findAllTag() {
+    return this.tagsService.findAllTag();
+  }
+
   @Get('/findOne/:id')
   findOne(@Param('id') id: string) {
     return this.tagsService.findOne(id);

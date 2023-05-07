@@ -14,7 +14,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../categories/entities/category.entity';
 import { BlogTagRelation } from '../tags/entities/blogTagRelation.entiry';
 import { Tag } from '../tags/entities/tag.entity';
-import { filterBlogInfo } from 'src/utils';
+import { buildBlogDetail, filterBlogInfo } from 'src/utils';
 
 @Injectable()
 export class BlogsService {
@@ -184,11 +184,32 @@ export class BlogsService {
 
   async findOne(id: string) {
     try {
-      const blog = await this.blogRepository.findOneBy({
-        blogId: id,
-      });
+      const blog = await this.blogRepository
+        .createQueryBuilder('blog')
+        .leftJoinAndMapMany(
+          'blog.TagInfo',
+          BlogTagRelation,
+          'blogtagrelation',
+          'blog.blogId = blogtagrelation.btrelationBlogId',
+        )
+        .leftJoinAndMapMany(
+          'blogtagrelation.tag',
+          Tag,
+          'tag',
+          'blogtagrelation.btrelationTagId = tag.tagId',
+        )
+        .where({
+          blogId: id,
+          ...{ isDeleted: IsDelete.Alive },
+        })
+        .getOne();
+
       if (!blog) throw new NotFoundException(`博客 #${id}未找到`);
-      this.response = { code: RCode.OK, msg: '获取博客成功', data: blog };
+      this.response = {
+        code: RCode.OK,
+        msg: '获取博客成功',
+        data: buildBlogDetail(blog),
+      };
       return this.response;
     } catch (error) {
       this.response = {
@@ -209,15 +230,15 @@ export class BlogsService {
       if (!blog) throw new NotFoundException(`博客 #${id}未找到`);
       await this.blogRepository.update({ blogId: id }, restUpdateBlogDto);
       if (blogTags) {
-        this.BlogTagRelationRepository.update(
-          { btrelationBlogId: id },
-          { isDeleted: IsDelete.Death },
-        );
+        await this.BlogTagRelationRepository.delete({ btrelationBlogId: id });
         const tagIdArr = blogTags.split('&&');
         tagIdArr.forEach(async (item) => {
+          const curTagInfo = await this.tagRepository.findOneBy({
+            tagName: item,
+          });
           const blogTagRelation = new BlogTagRelation();
           blogTagRelation.btrelationBlogId = id;
-          blogTagRelation.btrelationTagId = item;
+          blogTagRelation.btrelationTagId = curTagInfo.tagId;
           blogTagRelation.btrelationCreateTime = new Date();
           blogTagRelation.isDeleted = IsDelete.Alive;
           await this.BlogTagRelationRepository.save(blogTagRelation);

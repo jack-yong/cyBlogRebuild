@@ -33,6 +33,11 @@ export class CategoriesController {
     return this.categoriesService.findAll(query);
   }
 
+  @Get('/findAllCategory')
+  findAllCategory() {
+    return this.categoriesService.findAllCategory();
+  }
+
   @Get('/findOne/:id')
   findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);

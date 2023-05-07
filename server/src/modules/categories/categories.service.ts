@@ -105,6 +105,22 @@ export class CategoriesService {
     }
   }
 
+  async findAllCategory() {
+    try {
+      const categories = await this.categoryRepository.find();
+      if (!categories) throw new NotFoundException(`当前没有类别存在`);
+      this.response = { code: RCode.OK, msg: '获取类别成功', data: categories };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取类别失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async update(id: string, updateCategoryDto: UpdateCategoryDto) {
     try {
       const category = await this.categoryRepository.findOneBy({
