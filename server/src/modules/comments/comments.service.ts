@@ -102,6 +102,17 @@ export class CommentsService {
     }
   }
 
+  async getCommentCount() {
+    const commentCount = await this.commentRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '评论数量',
+      num: commentCount,
+      key: '/logs',
+    };
+  }
+
   remove(id: string) {
     return `This action removes a #${id} comment`;
   }

@@ -143,6 +143,17 @@ export class CategoriesService {
     }
   }
 
+  async getCategoryCount() {
+    const categoryCount = await this.categoryRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '类别数量',
+      num: categoryCount,
+      key: '/categories',
+    };
+  }
+
   async remove(id: string) {
     return `This action removes a #${id} category`;
   }

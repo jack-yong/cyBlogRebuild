@@ -133,6 +133,17 @@ export class LinksService {
     }
   }
 
+  async getLinkCount() {
+    const lmrCount = await this.linkRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '友链数量',
+      num: lmrCount,
+      key: '/links',
+    };
+  }
+
   async remove(id: string) {
     return `This action removes a #${id} link`;
   }

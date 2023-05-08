@@ -135,6 +135,17 @@ export class PortfolioService {
     }
   }
 
+  async getPortfolioCount() {
+    const portfolioCount = await this.portfolioRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '作品数量',
+      num: portfolioCount,
+      key: '/portfolio',
+    };
+  }
+
   remove(id: number) {
     return `This action removes a #${id} portfolio`;
   }

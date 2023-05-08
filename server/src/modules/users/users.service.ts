@@ -120,6 +120,17 @@ export class UsersService {
     }
   }
 
+  async getUserCount() {
+    const usercCount = await this.usersRepository.count({
+      where: { ...{ isDelete: IsDelete.Alive } },
+    });
+    return {
+      name: '用户数量',
+      num: usercCount,
+      key: '/users',
+    };
+  }
+
   // //删除指定用户的service方法
   async remove(id: string) {
     const user = await this.usersRepository.delete({ userId: id });

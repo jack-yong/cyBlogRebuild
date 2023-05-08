@@ -123,6 +123,17 @@ export class DevlogsService {
     }
   }
 
+  async getDevlogCount() {
+    const dspeechCount = await this.devlogRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '日志数量',
+      num: dspeechCount,
+      key: '/logs',
+    };
+  }
+
   remove(id: number) {
     return `This action removes a #${id} devlog`;
   }

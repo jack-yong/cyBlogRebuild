@@ -57,6 +57,7 @@ export class LmrService {
             lmrContent: Like(`%${query.lmrContent}%`),
           }),
           ...(query.isRead && { isRead: query.isRead }),
+          ...{ isDeleted: IsDelete.Alive },
         },
       });
       const lmrs = await this.lmrRepository.find({
@@ -65,6 +66,7 @@ export class LmrService {
             lmrContent: Like(`%${query.lmrContent}%`),
           }),
           ...(query.isRead && { isRead: query.isRead }),
+          ...{ isDeleted: IsDelete.Alive },
         },
         order: {
           lmrId: 'DESC',
@@ -128,6 +130,17 @@ export class LmrService {
       };
       return this.response;
     }
+  }
+
+  async getLmrCount() {
+    const lmrCount = await this.lmrRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '留言数量',
+      num: lmrCount,
+      key: '/messages',
+    };
   }
 
   async remove(id: string) {

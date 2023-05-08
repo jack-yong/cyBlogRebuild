@@ -42,6 +42,11 @@ export class BlogsController {
     return this.blogsService.update(id, updateBlogDto);
   }
 
+  @Get('/fetchHomeInfo')
+  fetchHomeInfo() {
+    return this.blogsService.getHomeInfo();
+  }
+
   // @Delete(':id')
   // remove(@Param('id') id: string) {
   //   return this.blogsService.remove(+id);

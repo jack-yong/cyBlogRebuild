@@ -15,6 +15,15 @@ import { Category } from '../categories/entities/category.entity';
 import { BlogTagRelation } from '../tags/entities/blogTagRelation.entiry';
 import { Tag } from '../tags/entities/tag.entity';
 import { buildBlogDetail, filterBlogInfo } from 'src/utils';
+import { UsersService } from '../users/users.service';
+import { TagsService } from '../tags/tags.service';
+import { DevlogsService } from '../devlogs/devlogs.service';
+import { CategoriesService } from '../categories/categories.service';
+import { LmrService } from '../lmr/lmr.service';
+import { CommentsService } from '../comments/comments.service';
+import { DspeechService } from '../dspeech/dspeech.service';
+import { LinksService } from '../links/links.service';
+import { PortfolioService } from '../portfolio/portfolio.service';
 
 @Injectable()
 export class BlogsService {
@@ -23,10 +32,17 @@ export class BlogsService {
   constructor(
     @InjectRepository(Blog)
     private readonly blogRepository: Repository<Blog>,
-    @InjectRepository(Tag)
-    private readonly tagRepository: Repository<Tag>,
     @InjectRepository(BlogTagRelation)
     private readonly BlogTagRelationRepository: Repository<BlogTagRelation>,
+    private readonly usersService: UsersService,
+    private readonly tagsService: TagsService,
+    private readonly devlogsService: DevlogsService,
+    private readonly categoriesService: CategoriesService,
+    private readonly lmrService: LmrService,
+    private readonly commentsService: CommentsService,
+    private readonly dspeechService: DspeechService,
+    private readonly linksService: LinksService,
+    private readonly portfolioService: PortfolioService,
   ) {}
 
   async create(createBlogDto: CreateBlogDto) {
@@ -233,9 +249,7 @@ export class BlogsService {
         await this.BlogTagRelationRepository.delete({ btrelationBlogId: id });
         const tagIdArr = blogTags.split('&&');
         tagIdArr.forEach(async (item) => {
-          const curTagInfo = await this.tagRepository.findOneBy({
-            tagName: item,
-          });
+          const curTagInfo = await this.tagsService.getTagByName(item);
           const blogTagRelation = new BlogTagRelation();
           blogTagRelation.btrelationBlogId = id;
           blogTagRelation.btrelationTagId = curTagInfo.tagId;
@@ -254,6 +268,47 @@ export class BlogsService {
       };
       return this.response;
     }
+  }
+
+  async getBlogCount() {
+    const blogCount = await this.blogRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '文章数量',
+      num: blogCount,
+      key: '/articles/manage',
+    };
+  }
+
+  async getHomeInfo() {
+    const blogCountInfo = await this.getBlogCount();
+    const tagCountInfo = await this.tagsService.getTagCount();
+    const userCountInfo = await this.usersService.getUserCount();
+    const categoryCountInfo = await this.categoriesService.getCategoryCount();
+    const devlogCountInfo = await this.devlogsService.getDevlogCount();
+    const lmrCountInfo = await this.lmrService.getLmrCount();
+    const dspeechCountInfo = await this.lmrService.getLmrCount();
+    const commentCountInfo = await this.commentsService.getCommentCount();
+    const portfolioCountInfo = await this.portfolioService.getPortfolioCount();
+    const linkCountInfo = await this.linksService.getLinkCount();
+    this.response = {
+      code: RCode.OK,
+      msg: '获取项目参数成功',
+      data: [
+        blogCountInfo,
+        tagCountInfo,
+        userCountInfo,
+        categoryCountInfo,
+        devlogCountInfo,
+        lmrCountInfo,
+        dspeechCountInfo,
+        commentCountInfo,
+        portfolioCountInfo,
+        linkCountInfo,
+      ],
+    };
+    return this.response;
   }
 
   async remove(id: number) {

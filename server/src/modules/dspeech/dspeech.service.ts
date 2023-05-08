@@ -122,6 +122,17 @@ export class DspeechService {
     }
   }
 
+  async getDspeechCount() {
+    const dspeechCount = await this.dspeechRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '说说数量',
+      num: dspeechCount,
+      key: '/talks',
+    };
+  }
+
   remove(id: string) {
     return `This action removes a #${id} dspeech`;
   }

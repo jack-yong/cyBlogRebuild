@@ -135,6 +135,23 @@ export class TagsService {
     }
   }
 
+  async getTagCount() {
+    const tagcount = await this.tagRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '标签数量',
+      num: tagcount,
+      key: '/tags',
+    };
+  }
+
+  async getTagByName(tagName: string) {
+    return await this.tagRepository.findOneBy({
+      tagName: tagName,
+    });
+  }
+
   remove(id: string) {
     return `This action removes a #${id} tag`;
   }
