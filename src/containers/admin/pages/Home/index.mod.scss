@@ -8,7 +8,6 @@
         flex-direction: row;
         justify-content: space-between;
 
-
         .chartbox {
             display: flex;
             flex-direction: column;
@@ -17,6 +16,7 @@
             box-shadow: 0 2px 8px #dde0e2;
             border-radius: 10px;
             padding: 10px;
+            // margin: 0 0.2rem;
 
             .title {
                 display: flex;
@@ -31,18 +31,14 @@
             }
 
             .pieStyle {
-
                 width: 35vw;
                 height: 20vh;
             }
 
             .canlderStyle {
-
                 width: 40vw;
                 height: 20vh;
             }
         }
-
-
     }
 }

@@ -1,22 +1,20 @@
+import { calendarInfoType } from '@/containers/admin/interfaces/home';
+
 export interface calendarProps {
-    canData: [];
+    canData: calendarInfoType[];
     year: string;
 }
 
 const useCalendar = ({ canData = [], year = '' }: calendarProps) => {
-    // const getData = (mydata) => {
-    //     const formateCanlder = [];
-    //     if (Array.isArray(mydata) && mydata.length > 0) {
-    //         mydata.map(item => {
-    //             const { commitNum, blogCreateDay } = item;
-    //             const  objArr = []
-    //             objArr.push(blogCreateDay);
-    //             objArr.push(commitNum)
-    //             formateCanlder.push(objArr);
-    //         })
-    //     }
-    //     return formateCanlder;
-    // }
+    const getData = (mydata: calendarInfoType[]) => {
+        return mydata.map((item: calendarInfoType) => {
+            const num = parseInt(item.num);
+            return [item.blogCreateTime, num];
+        });
+    };
+
+    const buildData = getData(canData);
+    console.log(buildData);
     return {
         tooltip: {
             position: 'top'
@@ -42,8 +40,8 @@ const useCalendar = ({ canData = [], year = '' }: calendarProps) => {
             {
                 type: 'heatmap',
                 coordinateSystem: 'calendar',
-                calendarIndex: 0
-                // data: getData(canData)
+                calendarIndex: 0,
+                data: buildData
             }
         ]
     };

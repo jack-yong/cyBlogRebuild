@@ -3,6 +3,7 @@ import s from './index.mod.scss';
 import { Card, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import { homeIncfoType } from '@/containers/admin/interfaces/home';
+import { isAdmin } from '@/containers/admin/utils/auth';
 
 export interface Props {
     boardata: homeIncfoType[];
@@ -24,7 +25,7 @@ const DisBoard: React.FC<Props> = ({ boardata, DBloading }) => {
                 const { key } = item;
                 switch (key) {
                     case '/articles/manage':
-                    case '/tag':
+                    case '/tags':
                     case '/categories':
                         articleObj.data.push(item);
                         break;
@@ -32,6 +33,7 @@ const DisBoard: React.FC<Props> = ({ boardata, DBloading }) => {
                     case '/comments':
                     case '/users':
                     case '/links':
+                        if (key === '/users' && !isAdmin()) break;
                         userObj.data.push(item);
                         break;
                     case '/portfolio':

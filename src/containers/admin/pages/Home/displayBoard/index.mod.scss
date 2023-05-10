@@ -10,7 +10,6 @@
         flex-direction: column;
         justify-content: space-between;
 
-
         .title {
             font-size: 18px;
             color: rgba(0, 0, 0, 0.85);
@@ -22,13 +21,12 @@
                 display: block;
                 width: 5px;
                 height: 20px;
-                background: #2385E8;
+                background: #2385e8;
                 border-radius: 10px;
                 position: absolute;
                 left: 0;
                 top: 4px;
             }
-
         }
 
         .info {
@@ -46,7 +44,6 @@
                     font-size: 18px;
                     color: rgba(0, 0, 0, 0.65);
                     letter-spacing: 1.05px;
-
                 }
 
                 .datanum {
@@ -63,11 +60,7 @@
                 .datanum {
                     color: #ee6666;
                 }
-
-
             }
         }
     }
-
-
 }

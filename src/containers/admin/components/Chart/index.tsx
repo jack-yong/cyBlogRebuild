@@ -5,7 +5,7 @@ import { LabelLayout } from 'echarts/features';
 import {
     // LineChart,
     // BarChart,
-    PieChart
+    PieChart,
     // ScatterChart,
     // RadarChart,
     // MapChart,
@@ -20,7 +20,7 @@ import {
     // CandlestickChart,
     // EffectScatterChart,
     // LinesChart,
-    // HeatmapChart,
+    HeatmapChart
     // PictorialBarChart,
     // ThemeRiverChart,
     // SunburstChart,
@@ -73,7 +73,8 @@ echarts.use([
     LegendComponent,
     LabelLayout,
     PieChart,
-    CanvasRenderer
+    CanvasRenderer,
+    HeatmapChart
 ]);
 
 export interface chartProps {
