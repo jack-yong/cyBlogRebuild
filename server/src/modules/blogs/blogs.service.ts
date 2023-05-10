@@ -4,6 +4,7 @@ import { UpdateBlogDto } from './dto/update-blog.dto';
 import { Blog } from './entities/blog.entity';
 import { Response } from 'src/common/interface/response.interface';
 import {
+  ArticleType,
   BlogStatus,
   EnableComment,
   IsDelete,
@@ -282,33 +283,104 @@ export class BlogsService {
   }
 
   async getHomeInfo() {
-    const blogCountInfo = await this.getBlogCount();
-    const tagCountInfo = await this.tagsService.getTagCount();
-    const userCountInfo = await this.usersService.getUserCount();
-    const categoryCountInfo = await this.categoriesService.getCategoryCount();
-    const devlogCountInfo = await this.devlogsService.getDevlogCount();
-    const lmrCountInfo = await this.lmrService.getLmrCount();
-    const dspeechCountInfo = await this.lmrService.getLmrCount();
-    const commentCountInfo = await this.commentsService.getCommentCount();
-    const portfolioCountInfo = await this.portfolioService.getPortfolioCount();
-    const linkCountInfo = await this.linksService.getLinkCount();
-    this.response = {
-      code: RCode.OK,
-      msg: '获取项目参数成功',
-      data: [
-        blogCountInfo,
-        tagCountInfo,
-        userCountInfo,
-        categoryCountInfo,
-        devlogCountInfo,
-        lmrCountInfo,
-        dspeechCountInfo,
-        commentCountInfo,
-        portfolioCountInfo,
-        linkCountInfo,
-      ],
-    };
-    return this.response;
+    try {
+      const blogCountInfo = await this.getBlogCount();
+      const tagCountInfo = await this.tagsService.getTagCount();
+      const userCountInfo = await this.usersService.getUserCount();
+      const categoryCountInfo = await this.categoriesService.getCategoryCount();
+      const devlogCountInfo = await this.devlogsService.getDevlogCount();
+      const lmrCountInfo = await this.lmrService.getLmrCount();
+      const commentCountInfo = await this.commentsService.getCommentCount();
+      const portfolioCountInfo =
+        await this.portfolioService.getPortfolioCount();
+      const linkCountInfo = await this.linksService.getLinkCount();
+      const dspeechCountInfo = await this.dspeechService.getDspeechCount();
+      this.response = {
+        code: RCode.OK,
+        msg: '获取博客各类信息成功',
+        data: [
+          blogCountInfo,
+          tagCountInfo,
+          userCountInfo,
+          categoryCountInfo,
+          devlogCountInfo,
+          lmrCountInfo,
+          dspeechCountInfo,
+          commentCountInfo,
+          portfolioCountInfo,
+          linkCountInfo,
+        ],
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取博客各类信息失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
+  async getArticleInfo(type: ArticleType) {
+    // console.log(type)
+    try {
+      if (type === ArticleType.tag) {
+        const info = await this.tagsService.getTagFollowsArticle();
+        this.response = {
+          code: RCode.OK,
+          msg: '获取文章分类数量信息成功',
+          data: {
+            type: '标签',
+            data: info,
+          },
+        };
+      } else {
+        const info = await this.categoriesService.getCategoryFollowsArticle();
+        this.response = {
+          code: RCode.OK,
+          msg: '获取文章分类数量信息成功',
+          data: {
+            type: '类别',
+            data: info,
+          },
+        };
+      }
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取文章分类数量信息失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
+  async getCalendarInfo(year: string) {
+    try {
+      const calendarInfo = await this.blogRepository
+        .createQueryBuilder('blog')
+        .andWhere(`YEAR(blog.blogCreateTime)=YEAR(NOW())`)
+        .select("DATE_FORMAT(blog.blogCreateTime,'%Y-%m-%d') blogCreateTime")
+        .addSelect('SUM(1)', 'num')
+        .groupBy('blogCreateTime')
+        .getRawMany();
+      // console.log(calendarInfo)
+      this.response = {
+        code: RCode.OK,
+        msg: '获取文章上传数据成功',
+        data: calendarInfo,
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取文章上传数据失败',
+        data: error.response,
+      };
+      return this.response;
+    }
   }
 
   async remove(id: number) {

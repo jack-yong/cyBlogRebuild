@@ -13,6 +13,7 @@ import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 import { findAllBlogDto } from './dto/findAll-blog.dto';
+import { ArticleType } from 'src/common/interface/common.interface';
 
 @Controller('/blogs')
 @ApiBearerAuth()
@@ -45,6 +46,16 @@ export class BlogsController {
   @Get('/fetchHomeInfo')
   fetchHomeInfo() {
     return this.blogsService.getHomeInfo();
+  }
+
+  @Get('/fetchCalendarInfo')
+  fetchCalendarInfo(@Query('year') year: string) {
+    return this.blogsService.getCalendarInfo(year);
+  }
+
+  @Get('/fetchArticleInfo')
+  fetchArticleInfo(@Query('type') type: ArticleType) {
+    return this.blogsService.getArticleInfo(type);
   }
 
   // @Delete(':id')

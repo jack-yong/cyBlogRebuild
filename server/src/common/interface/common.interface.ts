@@ -40,3 +40,8 @@ export enum EnableComment {
   able = 0,
   unable = 1,
 }
+
+export enum ArticleType {
+  tag = 0,
+  category = 1,
+}

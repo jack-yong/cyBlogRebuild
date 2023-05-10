@@ -7,6 +7,7 @@ import { Tag } from './entities/tag.entity';
 import { Response } from 'src/common/interface/response.interface';
 import { IsDelete } from 'src/common/interface/common.interface';
 import { RCode } from 'src/common/constant/rcode';
+import { BlogTagRelation } from './entities/blogTagRelation.entiry';
 
 @Injectable()
 export class TagsService {
@@ -150,6 +151,21 @@ export class TagsService {
     return await this.tagRepository.findOneBy({
       tagName: tagName,
     });
+  }
+
+  async getTagFollowsArticle() {
+    const tagFollowArticle = await this.tagRepository
+      .createQueryBuilder('tag')
+      .leftJoinAndSelect(
+        BlogTagRelation,
+        'blogtagrelation',
+        'blogtagrelation.btrelationTagId = tag.tagId',
+      )
+      .select('tag.tagName', 'name')
+      .addSelect('SUM(1)', 'value')
+      .groupBy('tag.tagId')
+      .getRawMany();
+    return tagFollowArticle;
   }
 
   remove(id: string) {
