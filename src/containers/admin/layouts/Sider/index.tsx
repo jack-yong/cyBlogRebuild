@@ -1,5 +1,4 @@
 import React from 'react';
-import type { MenuTheme } from 'antd';
 import s from './index.mod.scss';
 import Sider from 'antd/lib/layout/Sider';
 import Menu from './Menu';

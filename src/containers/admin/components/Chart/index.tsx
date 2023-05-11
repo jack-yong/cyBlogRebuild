@@ -85,6 +85,7 @@ export interface chartProps {
 
 const Chart = (props: chartProps) => {
     const { option, chartStyles, loading } = props;
+
     return (
         <Spin spinning={loading}>
             <div style={{ padding: '30px 30px' }}>

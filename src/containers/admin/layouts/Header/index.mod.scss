@@ -9,9 +9,9 @@
 
 .headerSwitch {
     float: right;
-    margin-top: $headerHeight/2;
+    margin-top: $headerHeight/2 !important;
     transform: translate(-50%, -50%);
-    background-color: rgba($color: #1668dc, $alpha: 0.8);
+    background-color: rgba($color: #1668dc, $alpha: 0.8) !important;
 }
 
 .collapsedtrigger {
