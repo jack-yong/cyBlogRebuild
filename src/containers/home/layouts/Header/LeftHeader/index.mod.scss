@@ -1,0 +1,27 @@
+@import '../../../styles/base.scss';
+
+.headerLeft {
+    font-size: 25px;
+    // font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: color 0.3s linear;
+    color: #000000d9;
+    // margin-right: 20px;
+}
+
+.title {
+    margin-left: 14px;
+    flex: 1;
+    color: $textColor;
+}
+
+.logo {
+    height: 30px;
+    width: 30px;
+    margin-left: 24px;
+}
+
+.headerLeft:hover {
+    color: #1890ff;
+
+    // color: -webkit-linear-gradient(#000000d9, #1890ff)
+}

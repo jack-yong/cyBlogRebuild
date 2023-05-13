@@ -2,8 +2,8 @@ import React, { Suspense } from 'react';
 import './index.scss';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes';
-import ErrorBoundary from './components/ErrorBoundary';
-import CustomLoading from './components/CustomLoading';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import CustomLoading from '@/components/CustomLoading';
 const router = createHashRouter(routes);
 const index: React.FC = () => {
     return (

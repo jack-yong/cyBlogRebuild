@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Breadcrumb, Layout, Space, Spin } from 'antd';
-import ErrorBoundary from '../../components/ErrorBoundary';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { Link, matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import s from './index.mod.scss';
 import routes from '../../routes';

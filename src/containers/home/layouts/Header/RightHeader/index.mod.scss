@@ -1,0 +1,31 @@
+.headerRight {
+    display: flex;
+    justify-self: baseline;
+
+    .headerNavbar {
+        flex: 1;
+        border-bottom: 1px;
+    }
+
+    .headerInfo {
+        flex: 1;
+        text-align: center;
+        padding-left: 16px
+    }
+
+
+}
+
+.adminIcon {
+
+    font-size: 1.3rem;
+    vertical-align: middle;
+    margin: 0 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.adminIcon:hover {
+    color: #1890ff;
+
+}

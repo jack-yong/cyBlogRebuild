@@ -1,0 +1,22 @@
+//size
+$headerHeight: 64px;
+$footerHeight: 48px;
+
+// 圆角
+$bigRadius: 10px;
+$midRadius: 5px;
+
+// 间距
+$space: 20px;
+
+//默认主题下的颜色为白色
+// 主色
+$themeColor: var(--themeColor, rgb(255, 255, 255));
+
+//副色
+$themeColor1: var(--themeColor1, rgb(240, 242, 245));
+
+//副色
+$themeColor2: var(--themeColor2, rgb(240, 242, 245));
+// 字体色
+$textColor: var(--textColor, rgb(0, 0, 0));

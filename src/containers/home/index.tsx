@@ -1,13 +1,16 @@
-import React from 'react';
-import Test from './components/Test';
-import HotChange from './components/HotChange';
-
+import React, { Suspense } from 'react';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import CustomLoading from '@/components/CustomLoading';
+import routes from './routers';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
+const router = createHashRouter(routes);
 const index: React.FC = () => {
     return (
-        <div>
-            <Test />
-            <HotChange />
-        </div>
+        <ErrorBoundary>
+            <Suspense fallback={<CustomLoading />}>
+                <RouterProvider router={router} />
+            </Suspense>
+        </ErrorBoundary>
     );
 };
 

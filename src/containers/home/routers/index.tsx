@@ -46,14 +46,14 @@ const routes: RouteObject[] = [
                 }
             },
             {
-                path: 'article',
+                path: '/article',
                 handle: {
                     title: '文章',
                     icon: <ContainerOutlined />
                 },
                 children: [
                     {
-                        path: '/category',
+                        path: '/article/category',
                         element: <Category />,
                         handle: {
                             title: '类别',
@@ -61,7 +61,7 @@ const routes: RouteObject[] = [
                         }
                     },
                     {
-                        path: '/tag',
+                        path: '/article/tag',
                         element: <Tag />,
                         handle: {
                             title: '标签',
@@ -69,7 +69,7 @@ const routes: RouteObject[] = [
                         }
                     },
                     {
-                        path: '/search',
+                        path: '/article/search',
                         element: <Search />,
                         handle: {
                             title: '搜索',
