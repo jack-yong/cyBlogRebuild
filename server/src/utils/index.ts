@@ -7,6 +7,7 @@ export const filterBlogInfo = (blogsArr: any) => {
     return {
       ...rest,
       TagInfo: tagInfo,
+      blogSnapshotContent: blogContent.slice(0, 300),
     };
   });
   return filterArr;
