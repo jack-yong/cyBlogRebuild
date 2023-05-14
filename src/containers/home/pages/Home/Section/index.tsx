@@ -120,7 +120,9 @@ const index: React.FC = () => {
                     description={renderDesc(item.blogCreateTime, item.categoryInfo, item.TagInfo)}
                 />
                 <p className={s.content}>
-                    {/* {item.blogSnapshotContent.replace(/<a(.*?)>(.*?)<\/a>/g, '$2').replace(/[# |**|`|>]/g, '')} */}
+                    {item.blogSnapshotContent
+                        .replace(/<a(.*?)>(.*?)<\/a>/g, '$2')
+                        .replace(/[# |**|`|>]/g, '')}
                 </p>
             </List.Item>
         </div>
