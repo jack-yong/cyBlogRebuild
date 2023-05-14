@@ -48,6 +48,11 @@ export class BlogsController {
     return this.blogsService.getHomeInfo();
   }
 
+  @Get('/fetchHomeData')
+  fetchHomeData() {
+    return this.blogsService.getHomeData();
+  }
+
   @Get('/fetchCalendarInfo')
   fetchCalendarInfo(@Query('year') year: string) {
     return this.blogsService.getCalendarInfo(year);

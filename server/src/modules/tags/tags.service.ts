@@ -147,6 +147,17 @@ export class TagsService {
     };
   }
 
+  async getTagData() {
+    const tagcount = await this.tagRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '标签数量',
+      num: tagcount,
+      key: '/article/tag',
+    };
+  }
+
   async getTagByName(tagName: string) {
     return await this.tagRepository.findOneBy({
       tagName: tagName,

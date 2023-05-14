@@ -282,6 +282,38 @@ export class BlogsService {
     };
   }
 
+  async getBlogData() {
+    const blogCount = await this.blogRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '文章数量',
+      num: blogCount,
+      key: '/article/search',
+    };
+  }
+
+  async getHomeData() {
+    try {
+      const blogCountInfo = await this.getBlogData();
+      const tagCountInfo = await this.tagsService.getTagData();
+      const categoryCountInfo = await this.categoriesService.getCategoryData();
+      this.response = {
+        code: RCode.OK,
+        msg: '获取博客各类信息成功',
+        data: [blogCountInfo, tagCountInfo, categoryCountInfo],
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取博客各类信息失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async getHomeInfo() {
     try {
       const blogCountInfo = await this.getBlogCount();

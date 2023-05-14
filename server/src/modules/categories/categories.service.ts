@@ -155,6 +155,17 @@ export class CategoriesService {
     };
   }
 
+  async getCategoryData() {
+    const categoryCount = await this.categoryRepository.count({
+      where: { ...{ isDeleted: IsDelete.Alive } },
+    });
+    return {
+      name: '类别数量',
+      num: categoryCount,
+      key: '/article/category',
+    };
+  }
+
   async getCategoryFollowsArticle() {
     const categoryFollowArticle = await this.categoryRepository
       .createQueryBuilder('category')
