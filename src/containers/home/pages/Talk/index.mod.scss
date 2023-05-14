@@ -1,20 +1,18 @@
-.devlog {
+.pushpins {
     height: 100vh;
     background-color: #fff;
     // text-align: center;
-    // padding: auto;
     padding: 40px;
     border-radius: 20px;
-
 }
 
 
-.dlitem {
+.item {
     box-sizing: border-box;
     position: relative;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     // margin: 10px;
     top: 10px;
@@ -26,19 +24,15 @@
     transform: scale(1);
     transition: all 0.4s ease-out;
 
-    .title {
-        font-size: 18px;
-        font-weight: 600;
-    }
-
-    .icon {
-        font-size: 14px;
-        margin: 5px 0;
+    .avator {
+        width: 60px;
+        height: 60px;
+        border-radius: 20% 20%;
     }
 
     .content {
-        font-size: 14px;
-        white-space: pre;
+        margin: 0 10px;
+
     }
 
     .time {
@@ -52,6 +46,6 @@
     }
 }
 
-.dlitem:hover {
+.item:hover {
     transform: scale(1.02);
 }

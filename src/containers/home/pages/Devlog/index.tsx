@@ -6,6 +6,7 @@ import { BugOutlined, CheckOutlined, RedoOutlined, RocketOutlined } from '@ant-d
 import { useRequest } from 'ahooks';
 import { fetchDevlogInfo } from '../../apis/devlog';
 import dayjs from 'dayjs';
+import Card from '../../components/Card';
 
 const DevLog = () => {
     const useDevlogList = useRequest(fetchDevlogInfo, {
@@ -47,7 +48,7 @@ const DevLog = () => {
         }
     };
     return (
-        <div className={s.devlog}>
+        <Card className={s.devlog} isStatic={true}>
             <Timeline>
                 {devLogInfo &&
                     devLogInfo.map(item => (
@@ -63,7 +64,7 @@ const DevLog = () => {
                         </Timeline.Item>
                     ))}
             </Timeline>
-        </div>
+        </Card>
     );
 };
 
