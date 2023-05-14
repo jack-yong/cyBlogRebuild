@@ -1,5 +1,4 @@
 .appContainer {
-
     align-items: center;
     justify-content: center;
 
@@ -39,13 +38,10 @@
     font-size: 14px;
 }
 
-;
-
 @media (min-width: 1300px) and (max-width: 4096px) {
     .app-container .appheader-root .app-header {
         width: 1400px;
     }
-
 
     .app-container .app-content {
         width: 1400px;

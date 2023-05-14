@@ -1,0 +1,21 @@
+.card {
+    margin-bottom: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    user-select: none;
+    background-color: #fff;
+    color: #000000d9;
+    padding: 20px;
+    transition: all 0.3s linear;
+}
+
+.active:hover {
+    transform: scale(1.02);
+    box-shadow: -1px 5px 16px rgba(0, 0, 0, 0.2);
+}
+
+.center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
