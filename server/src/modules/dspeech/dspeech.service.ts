@@ -43,7 +43,7 @@ export class DspeechService {
     pageSize: number;
   }) {
     try {
-      const dspeechcount = await this.dspeechRepository.find({
+      const dspeechcount = await this.dspeechRepository.count({
         where: {
           ...(query.dspeechContent && {
             dspeechContent: Like(`%${query.dspeechContent}%`),
@@ -73,6 +73,32 @@ export class DspeechService {
           page: query.page,
           pageSize: query.pageSize,
         },
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取说说失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
+  async findAllData() {
+    try {
+      const dspeech = await this.dspeechRepository.find({
+        where: {
+          ...{ isDeleted: IsDelete.Alive },
+        },
+        order: {
+          dspeechId: 'DESC',
+        },
+      });
+      this.response = {
+        code: RCode.OK,
+        msg: '获取说说成功',
+        data: dspeech,
       };
       return this.response;
     } catch (error) {

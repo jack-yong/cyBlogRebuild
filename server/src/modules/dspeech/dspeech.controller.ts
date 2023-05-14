@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { QueryAllCommonDto } from 'src/common/dto/query-common.dto';
 import { DspeechService } from './dspeech.service';
 import { CreateDspeechDto } from './dto/create-dspeech.dto';
 import { UpdateDspeechDto } from './dto/update-dspeech.dto';
@@ -21,6 +20,11 @@ export class DspeechController {
   @Get('/findAll')
   findAll(@Query() query: FindAllDspeechDto) {
     return this.dspeechService.findAll(query);
+  }
+
+  @Get('/findAllData')
+  findAllData() {
+    return this.dspeechService.findAllData();
   }
 
   @Get('/findOne/:id')
