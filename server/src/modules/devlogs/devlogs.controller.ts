@@ -30,6 +30,11 @@ export class DevlogsController {
     return this.devlogsService.findAll(query);
   }
 
+  @Get('/findAllData')
+  findAllData() {
+    return this.devlogsService.findAllData();
+  }
+
   @Get('/findOne/:id')
   findOne(@Param('id') id: string) {
     return this.devlogsService.findOne(id);

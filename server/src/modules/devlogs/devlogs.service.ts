@@ -86,6 +86,32 @@ export class DevlogsService {
     }
   }
 
+  async findAllData() {
+    try {
+      const devlogs = await this.devlogRepository.find({
+        where: {
+          ...{ isDeleted: IsDelete.Alive },
+        },
+        order: {
+          devlogId: 'DESC',
+        },
+      });
+      this.response = {
+        code: RCode.OK,
+        msg: '获取日志成功',
+        data: devlogs,
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取日志失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async findOne(id: string) {
     try {
       const devlog = await this.devlogRepository.findOneBy({
