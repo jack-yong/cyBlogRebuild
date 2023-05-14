@@ -32,6 +32,11 @@ export class PortfolioController {
     return this.portfolioService.findAll(query);
   }
 
+  @Get('/findAllData')
+  findAllData() {
+    return this.portfolioService.findAllData();
+  }
+
   @Get('/findOne/:id')
   findOne(@Param('id') id: string) {
     return this.portfolioService.findOne(id);

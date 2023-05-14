@@ -95,6 +95,32 @@ export class PortfolioService {
     }
   }
 
+  async findAllData() {
+    try {
+      const portfolios = await this.portfolioRepository.find({
+        where: {
+          ...{ isDeleted: IsDelete.Alive },
+        },
+        order: {
+          portfolioId: 'DESC',
+        },
+      });
+      this.response = {
+        code: RCode.OK,
+        msg: '获取作品集成功',
+        data: portfolios,
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取作品集失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async findOne(id: string) {
     try {
       const portfolios = await this.portfolioRepository.findOneBy({
