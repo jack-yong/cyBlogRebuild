@@ -32,6 +32,11 @@ export class LinksController {
     return this.linksService.findAll(query);
   }
 
+  @Get('/findAllData')
+  findAllData() {
+    return this.linksService.findAllData();
+  }
+
   @Get('/findOne/:id')
   findOne(@Param('id') id: string) {
     return this.linksService.findOne(id);

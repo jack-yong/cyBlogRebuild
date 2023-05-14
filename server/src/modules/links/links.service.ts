@@ -96,6 +96,32 @@ export class LinksService {
     }
   }
 
+  async findAllData() {
+    try {
+      const links = await this.linkRepository.find({
+        where: {
+          ...{ isDeleted: IsDelete.Alive },
+        },
+        order: {
+          linkId: 'DESC',
+        },
+      });
+      this.response = {
+        code: RCode.OK,
+        msg: '获取友链成功',
+        data: links,
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取友链失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
   async findOne(id: string) {
     try {
       const link = await this.linkRepository.findOneBy({
