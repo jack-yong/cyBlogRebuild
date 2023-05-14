@@ -21,3 +21,9 @@ export interface ArticleSnapshot {
 export interface queryArticleSnapshotResponse extends PageResponse {
     data: ArticleSnapshot[];
 }
+
+export interface homeDataType {
+    key: string;
+    num: number;
+    name: string;
+}

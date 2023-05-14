@@ -139,9 +139,11 @@ const index: React.FC = () => {
                 pagination={{
                     position: 'bottom',
                     size: 'default',
+                    hideOnSinglePage: true,
                     current: pageInfo.page,
                     pageSize: pageInfo.pageSize,
                     total,
+
                     onChange(page, pageSize) {
                         setPage({ page, pageSize });
                     }
