@@ -1,9 +1,9 @@
 import request from '@/utils/request';
 import { homeDataType, queryArticleSnapshotResponse } from '../interfaces/home';
-import { PageInfo, Response } from '@/interface/common';
+import { Response, featchBlogCondition } from '@/interface/common';
 
 export const fetchBlogSnapshot = async (
-    params: PageInfo
+    params: featchBlogCondition
 ): Promise<Response<queryArticleSnapshotResponse>> => {
     return (await request({ url: '/blogs/findAll', method: 'GET', params })).data;
 };

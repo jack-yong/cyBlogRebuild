@@ -3,6 +3,12 @@ export interface PageInfo {
     pageSize: number;
 }
 
+export interface featchBlogCondition extends PageInfo, Partial<blogbaseParams> {}
+export interface blogbaseParams {
+    blogTitle: string;
+    blogCategoryId: string;
+    tagId: string;
+}
 export interface PageResponse extends PageInfo {
     total: number;
 }
