@@ -6,3 +6,9 @@ export interface categoryBase {
     isDeleted: number;
     categoryCreateTime: string;
 }
+
+export interface categoryWithArticleNum {
+    id: string;
+    name: string;
+    value: number;
+}

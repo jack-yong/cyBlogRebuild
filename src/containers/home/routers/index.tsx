@@ -61,6 +61,14 @@ const routes: RouteObject[] = [
                         }
                     },
                     {
+                        path: '/article/category/:id',
+                        element: <Category />,
+                        handle: {
+                            title: '类别',
+                            disable: true
+                        }
+                    },
+                    {
                         path: '/article/tag',
                         element: <Tag />,
                         handle: {
