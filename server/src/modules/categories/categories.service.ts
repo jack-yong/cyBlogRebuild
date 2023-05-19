@@ -176,8 +176,10 @@ export class CategoriesService {
       )
       .select('category.categoryName', 'name')
       .addSelect('SUM(1)', 'value')
+      .addSelect('category.categoryId', 'id')
       .groupBy('category.categoryId')
       .getRawMany();
+    // console.log(categoryFollowArticle)
     return categoryFollowArticle;
   }
 
