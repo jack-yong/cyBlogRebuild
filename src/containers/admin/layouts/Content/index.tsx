@@ -5,13 +5,15 @@ import { Link, matchRoutes, Outlet, useLocation } from 'react-router-dom';
 import s from './index.mod.scss';
 import routes from '../../routes';
 import { HomeOutlined } from '@ant-design/icons';
+import { useTitle } from 'ahooks';
 
 const { Content } = Layout;
 
 const index: React.FC = () => {
     const location = useLocation();
     const matches = matchRoutes(routes, location);
-
+    const title = matches && matches[matches.length - 1].route?.handle?.title;
+    useTitle(`${title}`);
     /* renders */
     const renderBreadcrumb = () => {
         return (matches ?? []).map(i => {
