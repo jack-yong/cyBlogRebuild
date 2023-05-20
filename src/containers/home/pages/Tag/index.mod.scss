@@ -1,0 +1,41 @@
+.tagpage {
+    height: 100vh;
+    background-color: #fff;
+    text-align: center;
+    padding: 40px;
+    border-radius: 20px;
+
+    .tagshow {
+        display: inline-block;
+        position: relative;
+        width: 40vw;
+        // height: 20vh;
+        padding-bottom: 30px;
+        border-radius: 10px;
+        box-shadow: 0 1px 8px 0 #0000001a;
+
+        .taglist {
+            display: flex;
+            margin-top: 25px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    }
+
+    .tagshow::before {
+        position: relative;
+        content: '🏷文章标签';
+        font-size: 20px;
+        font-weight: bold;
+        top: 10px;
+    }
+}
+
+.pagination {
+    height: 50px;
+    user-select: none;
+    text-align: center;
+    margin-top: 20px;
+}

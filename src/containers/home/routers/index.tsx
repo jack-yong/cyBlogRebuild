@@ -77,6 +77,14 @@ const routes: RouteObject[] = [
                         }
                     },
                     {
+                        path: '/article/tag/:id',
+                        element: <Tag />,
+                        handle: {
+                            title: '标签',
+                            disable: true
+                        }
+                    },
+                    {
                         path: '/article/search',
                         element: <Search />,
                         handle: {
@@ -91,14 +99,6 @@ const routes: RouteObject[] = [
                 element: <Article />,
                 handle: {
                     disable: true
-                }
-            },
-            {
-                path: '/about',
-                element: <About />,
-                handle: {
-                    title: '关于',
-                    icon: <InfoOutlined />
                 }
             },
             {
@@ -139,6 +139,14 @@ const routes: RouteObject[] = [
                 handle: {
                     title: '留言',
                     icon: <MessageOutlined />
+                }
+            },
+            {
+                path: '/about',
+                element: <About />,
+                handle: {
+                    title: '关于',
+                    icon: <InfoOutlined />
                 }
             }
         ]

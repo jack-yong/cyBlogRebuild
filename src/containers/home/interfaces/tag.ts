@@ -5,3 +5,10 @@ export interface tagBase {
     isDeleted: number;
     tagCreateTime: Date;
 }
+
+export interface tagWithArticleNum {
+    id: string;
+    name: string;
+    tagColor: string;
+    value: number;
+}

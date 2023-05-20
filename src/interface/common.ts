@@ -7,7 +7,7 @@ export interface featchBlogCondition extends PageInfo, Partial<blogbaseParams> {
 export interface blogbaseParams {
     blogTitle: string;
     blogCategoryId: string;
-    tagId: string;
+    blogTags: string;
 }
 export interface PageResponse extends PageInfo {
     total: number;
