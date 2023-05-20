@@ -38,6 +38,11 @@ export class BlogsController {
     return this.blogsService.findOne(id);
   }
 
+  @Get('/findDetail/:id')
+  findDetail(@Param('id') id: string) {
+    return this.blogsService.findDetail(id);
+  }
+
   @Post('/update/:id')
   update(@Param('id') id: string, @Body() updateBlogDto: UpdateBlogDto) {
     return this.blogsService.update(id, updateBlogDto);

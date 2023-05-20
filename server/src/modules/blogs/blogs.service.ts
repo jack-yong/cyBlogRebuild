@@ -15,7 +15,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../categories/entities/category.entity';
 import { BlogTagRelation } from '../tags/entities/blogTagRelation.entiry';
 import { Tag } from '../tags/entities/tag.entity';
-import { buildBlogDetail, filterBlogInfo } from 'src/utils';
+import { bBlogDetail, buildBlogDetail, filterBlogInfo } from 'src/utils';
 import { UsersService } from '../users/users.service';
 import { TagsService } from '../tags/tags.service';
 import { DevlogsService } from '../devlogs/devlogs.service';
@@ -237,6 +237,51 @@ export class BlogsService {
         code: RCode.OK,
         msg: '获取博客成功',
         data: buildBlogDetail(blog),
+      };
+      return this.response;
+    } catch (error) {
+      this.response = {
+        code: RCode.ERROR,
+        msg: '获取博客失败',
+        data: error.response,
+      };
+      return this.response;
+    }
+  }
+
+  async findDetail(id: string) {
+    try {
+      const blog = await this.blogRepository
+        .createQueryBuilder('blog')
+        .leftJoinAndMapOne(
+          'blog.categoryInfo',
+          Category,
+          'category',
+          'blog.blogCategoryId = category.categoryId',
+        )
+        .leftJoinAndMapMany(
+          'blog.TagInfo',
+          BlogTagRelation,
+          'blogtagrelation',
+          'blog.blogId = blogtagrelation.btrelationBlogId',
+        )
+        .leftJoinAndMapMany(
+          'blogtagrelation.tag',
+          Tag,
+          'tag',
+          'blogtagrelation.btrelationTagId = tag.tagId',
+        )
+        .where({
+          blogId: id,
+          ...{ isDeleted: IsDelete.Alive },
+        })
+        .getOne();
+
+      if (!blog) throw new NotFoundException(`博客 #${id}未找到`);
+      this.response = {
+        code: RCode.OK,
+        msg: '获取博客成功',
+        data: bBlogDetail(blog),
       };
       return this.response;
     } catch (error) {

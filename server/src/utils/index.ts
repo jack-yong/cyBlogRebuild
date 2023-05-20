@@ -42,3 +42,15 @@ export const buildBlogDetail = (blogDetail: any) => {
     blogTags: tags,
   };
 };
+
+export const bBlogDetail = (blogDetail: any) => {
+  // console.log(blogDetail)
+  const { TagInfo, ...rest } = blogDetail;
+  const tags = TagInfo.map((element: any) => {
+    return element.tag[0];
+  });
+  return {
+    ...rest,
+    TagInfo: tags,
+  };
+};
