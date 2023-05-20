@@ -2,10 +2,9 @@ import React from 'react';
 import s from './index.mod.scss';
 import Menu from './Menu';
 import { SettingOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 const RightHeader: React.FC = () => {
     const toAdmin = () => {
-        window.location.href = 'http://101.132.119.45:8136/#/home';
+        window.location.href = 'http://cyong.online:8136/';
     };
 
     return (

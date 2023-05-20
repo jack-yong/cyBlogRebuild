@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import s from './index.mod.scss';
-import './index.scss';
+
 import { useRequest, useSetState } from 'ahooks';
 import { PageInfo } from '@/interface/common';
 import { fetchBlogSnapshot } from '../../apis/home';
@@ -10,7 +9,8 @@ import { fetchTagList } from '../../apis/tag';
 import ArticleSnapList from '../../components/ArticleSnapList';
 import { ArticleSnapshot } from '../../interfaces/home';
 import { tagWithArticleNum } from '../../interfaces/tag';
-
+import s from './index.mod.scss';
+import './index.scss';
 const PAGE_SIZE = 6;
 
 const index: React.FC = () => {

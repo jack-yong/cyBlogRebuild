@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import s from './index.mod.scss';
-import './index.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fetchCategoryList } from '../../apis/category';
 import { useRequest, useSetState } from 'ahooks';
@@ -9,6 +7,8 @@ import { fetchBlogSnapshot } from '../../apis/home';
 import { Spin, Tag, Badge, Pagination } from 'antd';
 import ArticleSnapList from '../../components/ArticleSnapList';
 import { ArticleSnapshot } from '../../interfaces/home';
+import s from './index.mod.scss';
+import './index.scss';
 const PAGE_SIZE = 6;
 const Category = () => {
     const location = useLocation();
