@@ -8,7 +8,7 @@ import { CustomIconComponentProps } from '@ant-design/icons/lib/components/Icon'
 import avatarDefault from '@/containers/admin/assets/images/avatar.jpg';
 import { useSnapshot } from 'valtio';
 import { userInfoStore } from '../../store/account';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../utils/auth';
 
 const { Header } = Layout;

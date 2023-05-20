@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 import { matchRoutes, RouteObject, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
@@ -13,7 +13,7 @@ const index: React.FC = () => {
     const matches = matchRoutes(routes, location) ?? [];
     const menuData = (matches[0].route.children ?? []).filter(i => i?.handle?.title);
     const { isCollapsed, theme } = useSnapshot(configStore);
-    const [activeMenus, setActiveMenus] = useState<string[]>([location.pathname]);
+    // const [activeMenus, setActiveMenus] = useState<string[]>([location.pathname]);
     const adminStatus = isAdmin();
     const renderMenu = (routes: RouteObject[]) => {
         //eslint-disable-next-line
@@ -40,9 +40,9 @@ const index: React.FC = () => {
                 defaultOpenKeys={[menuData[0].path as string]}
                 defaultSelectedKeys={[location.pathname]}
                 inlineCollapsed={isCollapsed}
-                selectedKeys={activeMenus}
+                selectedKeys={[location.pathname]}
                 onSelect={({ key }) => {
-                    setActiveMenus([key]);
+                    // setActiveMenus([key]);
                     navigate(key);
                 }}
                 items={renderMenu(menuData)}
