@@ -96,6 +96,7 @@ export class BlogsService {
     blogTitle: string;
     blogCategoryId: string;
     blogEnableComment: EnableComment;
+    blogTags: string;
     blogStatus: BlogStatus;
     page: number;
     pageSize: number;
@@ -130,25 +131,35 @@ export class BlogsService {
           ...(query.blogStatus && { blogStatus: query.blogStatus }),
           ...{ isDeleted: IsDelete.Alive },
         })
-        .skip((query.page - 1) * query.pageSize)
-        .take(query.pageSize)
+        // .skip((query.page - 1) * query.pageSize)
+        // .take(query.pageSize)
         .getMany();
       // console.log(blogs)
-      const blogCount = await this.blogRepository
-        .createQueryBuilder('blog')
-        .where({
-          ...(query.blogTitle && { blogTitle: Like(`%${query.blogTitle}%`) }),
-          ...(query.blogCategoryId && { blogCategoryId: query.blogCategoryId }),
-          ...(query.blogStatus && { blogStatus: query.blogStatus }),
-          ...{ isDeleted: IsDelete.Alive },
-        })
-        .getCount();
+      // const blogCount = await this.blogRepository
+      //   .createQueryBuilder('blog')
+      //   .where({
+      //     ...(query.blogTitle && { blogTitle: Like(`%${query.blogTitle}%`) }),
+      //     ...(query.blogCategoryId && { blogCategoryId: query.blogCategoryId }),
+      //     ...(query.blogStatus && { blogStatus: query.blogStatus }),
+      //     ...{ isDeleted: IsDelete.Alive },
+      //   })
+      //   .getCount();
+      // console.log(blogs, 'blogs')
+      const startPos = (query.page - 1) * query.pageSize;
+      const endPos = startPos + query.pageSize;
+      const { data, total } = filterBlogInfo(
+        blogs,
+        query.blogTags,
+        startPos,
+        endPos,
+      );
+      // console.log(data)
       this.response = {
         code: RCode.OK,
         msg: '获取博客成功',
         data: {
-          data: filterBlogInfo(blogs),
-          total: blogCount,
+          data,
+          total,
           page: query.page,
           pageSize: query.pageSize,
         },

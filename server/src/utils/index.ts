@@ -1,16 +1,29 @@
-export const filterBlogInfo = (blogsArr: any) => {
-  const filterArr = blogsArr.map((item: any) => {
+export const filterBlogInfo = (
+  blogsArr: any,
+  blogTags: string,
+  startPos: number,
+  endPos: number,
+) => {
+  const tagIdArr = blogTags && blogTags.split('&&');
+  let resArr = [];
+  blogsArr.map((item: any) => {
     const { blogContent, TagInfo, ...rest } = item;
     const tagInfo = TagInfo.map((element: any) => {
       return element.tag[0];
     });
-    return {
-      ...rest,
-      TagInfo: tagInfo,
-      blogSnapshotContent: blogContent.slice(0, 300),
-    };
+    const curTagId = Array.from(tagInfo, ({ tagId }) => tagId);
+    const combineArr = tagIdArr && curTagId.concat(tagIdArr);
+    // console.log(combineArr)
+    if (!tagIdArr || combineArr.length !== new Set(combineArr).size) {
+      resArr.push({
+        ...rest,
+        TagInfo: tagInfo,
+        blogSnapshotContent: blogContent.slice(0, 300),
+      });
+    }
   });
-  return filterArr;
+  console.log(resArr);
+  return { data: resArr.slice(startPos, endPos), total: resArr.length };
 };
 
 export const buildBlogDetail = (blogDetail: any) => {
