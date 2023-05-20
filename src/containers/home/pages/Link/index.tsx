@@ -51,14 +51,14 @@ const Link = () => {
                 </div>
 
                 <div className={s.linkcontent} key='recomdation'>
-                    <div className={s.linktitle}>友链</div>
+                    <div className={s.linktitle}>推荐网站</div>
                     <div className={s.linkList}>
                         {linkData && listItem(linkData as linkBase[], linkType.recommend)}
                     </div>
                 </div>
 
                 <div className={s.linkcontent} key='ltool'>
-                    <div className={s.linktitle}>友链</div>
+                    <div className={s.linktitle}>小工具</div>
                     <div className={s.linkList}>
                         {linkData && listItem(linkData as linkBase[], linkType.tool)}
                     </div>
