@@ -174,6 +174,7 @@ export class CategoriesService {
         'blog',
         'blog.blogCategoryId = category.categoryId',
       )
+      .where('blog.isDeleted = :isDeleted', { isDeleted: IsDelete.Alive })
       .select('category.categoryName', 'name')
       .addSelect('SUM(1)', 'value')
       .addSelect('category.categoryId', 'id')
