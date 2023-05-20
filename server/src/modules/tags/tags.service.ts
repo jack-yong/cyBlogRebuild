@@ -174,8 +174,11 @@ export class TagsService {
       )
       .select('tag.tagName', 'name')
       .addSelect('SUM(1)', 'value')
+      .addSelect('tag.tagId', 'id')
+      .addSelect('tag.tagColor', 'tagColor')
       .groupBy('tag.tagId')
       .getRawMany();
+    // console.log(tagFollowArticle)
     return tagFollowArticle;
   }
 
