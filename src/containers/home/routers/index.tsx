@@ -98,7 +98,8 @@ const routes: RouteObject[] = [
                 path: '/article/:id',
                 element: <Article />,
                 handle: {
-                    disable: true
+                    disable: true,
+                    title: '文章'
                 }
             },
             {
